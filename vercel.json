@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/rastreador-tempo/:path*",
+            "destination": "https://rastreador-tempo.vercel.app/:path*"
+        }
+    ]
+}
