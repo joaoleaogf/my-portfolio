@@ -169,7 +169,6 @@ const SolarSystem = ({ category, skills, iconMap }) => {
                So Sun stays at center 0,0. scale = 1.
             */}
             <div className="solar-center" style={{ zIndex: 10 }}>
-                <div className="center-icon">{category.icon}</div>
                 <div className="center-label">{category.title}</div>
             </div>
 
