@@ -6,32 +6,30 @@ const Skills = () => {
     return (
         <section id="skills" className="section skills">
             <div className="container">
-                <h2 className="section-title">Habilidades & Tecnologias</h2>
-
-                <p className="skills-subtitle">
-                    Tecnologias e ferramentas que utilizo para criar soluções robustas
-                </p>
+                <header className="section-header">
+                    <h2 className="section-title">Habilidades & <span className="highlight">Tecnologias</span></h2>
+                    <p className="skills-subtitle">
+                        Um ecossistema tecnológico completo para transformar ideias em realidade.
+                    </p>
+                </header>
 
                 <div className="skills-grid">
-                    {skillsCategories.map(category => (
-                        <div key={category.id} className="skill-category glass-card">
+                    {skillsCategories.map((category, index) => (
+                        <div
+                            key={category.id}
+                            className="skill-category glass-card"
+                            style={{ animationDelay: `${index * 100}ms` }}
+                        >
                             <div className="category-header">
                                 <span className="category-icon">{category.icon}</span>
                                 <h3 className="category-title">{category.title}</h3>
                             </div>
 
                             <div className="skills-list">
-                                {category.skills.map(skill => (
-                                    <div key={skill.name} className="skill-item">
-                                        <div className="skill-info">
+                                {category.skills.map((skill) => (
+                                    <div key={skill.name} className="skill-chip">
+                                        <div className="skill-content">
                                             <span className="skill-name">{skill.name}</span>
-                                            <span className="skill-level">{skill.level}%</span>
-                                        </div>
-                                        <div className="skill-bar">
-                                            <div
-                                                className="skill-progress"
-                                                style={{ width: `${skill.level}%` }}
-                                            ></div>
                                         </div>
                                     </div>
                                 ))}
