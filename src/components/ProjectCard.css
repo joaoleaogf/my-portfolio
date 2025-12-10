@@ -87,6 +87,9 @@
     margin-top: auto;
     padding-top: var(--spacing-md);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
 }
 
 .project-link {

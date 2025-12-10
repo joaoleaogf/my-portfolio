@@ -1,5 +1,20 @@
 export const projects = [
     {
+        id: 9,
+        emoji: '⏱️',
+        title: 'Rastreador de Tempo',
+        description: 'Aplicação moderna de rastreamento de tempo com design glassmorphism e integração com Supabase',
+        highlights: [
+            'Cronômetro integrado com persistência',
+            'Dashboard analítico com gráficos interativos',
+            'Design Glassmorphism com Dark Mode',
+            'Suporte multi-usuário e multi-projeto'
+        ],
+        technologies: ['JavaScript', 'Supabase', 'TailwindCSS', 'Chart.js'],
+        demoUrl: 'https://www.joaoleaogf/rastreador-tempo',
+        featured: true
+    },
+    {
         id: 1,
         emoji: '🩺',
         title: 'ETL GeoSaúde Itajubá',

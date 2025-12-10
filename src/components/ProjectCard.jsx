@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import { FiExternalLink, FiGithub, FiGlobe } from 'react-icons/fi';
 import './ProjectCard.css';
 
 const ProjectCard = ({ project }) => {
@@ -28,16 +28,31 @@ const ProjectCard = ({ project }) => {
             </div>
 
             <div className="project-footer">
-                <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-link"
-                >
-                    <FiGithub size={18} />
-                    Ver código
-                    <FiExternalLink size={16} />
-                </a>
+                {project.demoUrl && (
+                    <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-link"
+                    >
+                        <FiGlobe size={18} />
+                        Ver projeto
+                        <FiExternalLink size={16} />
+                    </a>
+                )}
+
+                {project.githubUrl && (
+                    <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-link"
+                    >
+                        <FiGithub size={18} />
+                        Ver código
+                        <FiExternalLink size={16} />
+                    </a>
+                )}
             </div>
         </div>
     );
