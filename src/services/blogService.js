@@ -1,6 +1,93 @@
 // Artigos do Blog baseados nos projetos do portfólio
 const STATIC_ARTICLES = [
     {
+        id: 11,
+        title: "Sistema Solar Interativo: A Física por Trás da Seção Skills",
+        description: "Uma análise técnica da seção 'Habilidades & Tecnologias', que transforma uma lista de skills em um ecossistema interativo com física simulada, órbitas 3D e efeitos visuais modernos.",
+        published_at: "2024-12-11T16:00:00.000Z",
+        reading_time_minutes: 8,
+        tag_list: ["React", "Animações", "Física", "CSS", "Frontend"],
+        url: "#",
+        cover_image: "/images/skills-solar-system.png",
+        content: `
+            <p>A seção <strong>"Habilidades & Tecnologias"</strong> deste portfólio não é uma lista comum. É um <strong>sistema solar interativo</strong> onde cada categoria é um "planeta" e as tecnologias orbitam como satélites, tudo animado com física simulada em tempo real.</p>
+
+            <h3>O Conceito</h3>
+            <p>A inspiração veio de um sistema planetário:</p>
+            <ul>
+                <li><strong>Categorias</strong> (Backend, Frontend, etc.) são planetas que flutuam pelo espaço</li>
+                <li><strong>Tecnologias</strong> (React, Node.js, etc.) são satélites que orbitam os planetas</li>
+                <li><strong>Mouse do usuário</strong> é uma força repulsiva, como um campo gravitacional</li>
+            </ul>
+
+            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1000&auto=format&fit=crop" alt="Sistema Solar" />
+            <p class="caption">A inspiração: sistemas planetários em movimento constante.</p>
+
+            <h3>O Motor de Física</h3>
+            <p>O coração da seção é um <strong>engine de física customizado</strong> rodando a 60fps via <code>requestAnimationFrame</code>. Cada frame calcula múltiplas forças:</p>
+            <ul>
+                <li><strong>Repulsão entre categorias:</strong> Evita sobreposição (força: 12000)</li>
+                <li><strong>Atração ao centro:</strong> Mantém tudo visível (força: 0.0002)</li>
+                <li><strong>Repulsão do mouse:</strong> Interatividade (força: 20000, raio: 200px)</li>
+                <li><strong>Movimento orgânico:</strong> Ondas senoidais para parecer "vivo"</li>
+                <li><strong>Impulsos aleatórios:</strong> Imprevisibilidade natural</li>
+            </ul>
+
+            <h3>Órbita 3D Simulada</h3>
+            <p>As tecnologias orbitam em <strong>elipses 3D simuladas</strong>, onde a posição Z determina:</p>
+            <ul>
+                <li><strong>Escala:</strong> Maior quando na frente (1.0) menor quando atrás (0.7)</li>
+                <li><strong>Opacidade:</strong> Mais visível na frente, mais transparente atrás</li>
+                <li><strong>Z-Index:</strong> Elementos "na frente" ficam sobre o círculo central</li>
+            </ul>
+
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop" alt="Órbitas" />
+            <p class="caption">Órbitas elípticas criam ilusão de profundidade 3D.</p>
+
+            <h3>Design Visual: Glassmorphism</h3>
+            <p>Os badges das tecnologias usam o efeito <strong>Glassmorphism</strong>:</p>
+            <ul>
+                <li>Fundo semi-transparente com blur</li>
+                <li>Bordas sutis com destaque roxo</li>
+                <li>Sombras para profundidade</li>
+                <li>Hover com aumento de escala e mudança de cor</li>
+            </ul>
+
+            <h3>As 5 Categorias</h3>
+            <p>O sistema organiza as habilidades em:</p>
+            <ol>
+                <li><strong>ETL & Pipelines:</strong> Node.js, Python, Docker</li>
+                <li><strong>Geoprocessamento:</strong> PostGIS, QGIS, Geocoding</li>
+                <li><strong>Backend:</strong> APIs RESTful, PostgreSQL, Microserviços</li>
+                <li><strong>Frontend:</strong> React, Angular, Vue.js, NextJS</li>
+                <li><strong>Ferramentas:</strong> Git, Algoritmos, Análise de Dados</li>
+            </ol>
+
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1000&auto=format&fit=crop" alt="Tecnologias" />
+            <p class="caption">Cada categoria agrupa tecnologias relacionadas.</p>
+
+            <h3>Interatividade</h3>
+            <p>A seção responde a interações:</p>
+            <ul>
+                <li><strong>Mouse:</strong> Categorias se afastam do cursor</li>
+                <li><strong>Touch:</strong> Funciona em dispositivos móveis</li>
+                <li><strong>Hover:</strong> Badges aumentam e mudam de cor</li>
+            </ul>
+
+            <h3>Tecnologias Utilizadas</h3>
+            <p>A implementação usa:</p>
+            <ul>
+                <li><strong>React:</strong> Hooks (useState, useEffect, useRef, useMemo)</li>
+                <li><strong>react-icons:</strong> Ícones das tecnologias</li>
+                <li><strong>requestAnimationFrame:</strong> Loop de animação suave</li>
+                <li><strong>CSS com variáveis:</strong> Theming consistente</li>
+            </ul>
+
+            <h3>Conclusão</h3>
+            <p>Esta seção é mais que uma lista de habilidades — é uma <strong>demonstração prática</strong> de conhecimentos em React, CSS avançado, matemática aplicada e design de interfaces modernas. A própria implementação prova as habilidades que lista!</p>
+        `
+    },
+    {
         id: 1,
         title: "O Início da Jornada: Construindo meu Portfólio",
         description: "Bem-vindo ao meu novo espaço na web! Neste primeiro artigo, compartilho um pouco sobre as tecnologias que escolhi para construir este portfólio: React, Vite, Framer Motion e muito mais.",

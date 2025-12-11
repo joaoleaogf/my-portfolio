@@ -19,24 +19,34 @@ const Header = () => {
             if (isHomePage) {
                 // Update active section based on scroll position only on homepage
                 const sections = ['home', 'about', 'projects', 'skills', 'contact'];
-                const scrollPosition = window.scrollY + 100;
+
+                // Find which section is currently most visible
+                let currentSection = 'home';
+                let minDistance = Infinity;
 
                 for (const section of sections) {
                     const element = document.getElementById(section);
                     if (element) {
-                        const offsetTop = element.offsetTop;
-                        const offsetBottom = offsetTop + element.offsetHeight;
+                        const rect = element.getBoundingClientRect();
+                        const sectionTop = rect.top;
 
-                        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-                            setActiveSection(section);
-                            break;
+                        // Check if section top is at or above the detection line (150px from top)
+                        // and the section is still visible
+                        if (sectionTop <= 150 && rect.bottom > 0) {
+                            const distance = Math.abs(sectionTop - 150);
+                            if (sectionTop <= 150) {
+                                currentSection = section;
+                            }
                         }
                     }
                 }
+
+                setActiveSection(currentSection);
             }
         };
 
         window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Call once on mount
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isHomePage]);
 
@@ -90,8 +100,8 @@ const Header = () => {
                                 <button
                                     onClick={() => handleNavigation(item.id)}
                                     className={`nav-link ${activeSection === item.id && isHomePage && item.id !== 'blog'
-                                            ? 'active'
-                                            : (item.id === 'blog' && location.pathname === '/blog' ? 'active' : '')
+                                        ? 'active'
+                                        : (item.id === 'blog' && location.pathname === '/blog' ? 'active' : '')
                                         }`}
                                 >
                                     {item.label}
@@ -130,8 +140,8 @@ const Header = () => {
                                     <button
                                         onClick={() => handleNavigation(item.id)}
                                         className={`mobile-nav-link ${activeSection === item.id && isHomePage && item.id !== 'blog'
-                                                ? 'active'
-                                                : (item.id === 'blog' && location.pathname === '/blog' ? 'active' : '')
+                                            ? 'active'
+                                            : (item.id === 'blog' && location.pathname === '/blog' ? 'active' : '')
                                             }`}
                                     >
                                         {item.label}
