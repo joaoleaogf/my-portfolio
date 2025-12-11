@@ -4,205 +4,219 @@ import './Skills.css';
 const SolarSystem = ({ category, skills, iconMap }) => {
     const containerRef = useRef(null);
     const requestRef = useRef();
-    const [isDragging, setIsDragging] = useState(false);
-    const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
+    const particlesRef = useRef([]);
+    const mouseRef = useRef({ x: 0, y: 0, active: false });
 
-    // Config
-    const perspective = 800;
-    const baseRadius = 160;
+    // Physics config
+    const config = {
+        centerAttraction: 0.0008,    // Pull towards center
+        particleRepulsion: 2500,     // Push between particles
+        friction: 0.95,              // Velocity damping
+        maxSpeed: 4,                 // Max velocity
+        orbitRadius: 140,            // Target orbit distance from center
+        orbitForce: 0.001,           // Force to maintain orbit
+        mouseRepulsion: 8000,        // Mouse pushes particles away
+        mouseRadius: 150,            // Mouse influence radius
+        wobble: 0.3,                 // Random movement factor
+    };
 
-    // State for rotation (camera angle)
-    // Initial tilt to show 3D effect: rotateX somewhat
-    const rotation = useRef({ x: 0.3, y: 0 });
-    const targetRotation = useRef({ x: 0.3, y: 0 });
+    // Container dimensions
+    const containerSize = 400;
+    const centerX = containerSize / 2;
+    const centerY = containerSize / 2;
 
-    // Animation loop state
-    const t = useRef(0);
-
-    // Initial Planet Positions (evenly distributed)
-    const planets = useMemo(() => {
+    // Initialize particles with positions and velocities
+    const initializeParticles = useMemo(() => {
         return skills.map((skill, index) => {
             const angle = (2 * Math.PI * index) / skills.length;
-            // Introduce some variance in orbit radius or speed if desired, for now uniform circle
+            const radius = config.orbitRadius + (Math.random() - 0.5) * 40;
             return {
                 ...skill,
-                initialAngle: angle,
-                speed: 0.002, // Base orbital speed
-                radius: baseRadius,
-                yOffset: 0 // Could add vertical noise
+                x: centerX + Math.cos(angle) * radius,
+                y: centerY + Math.sin(angle) * radius,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                baseAngle: angle,
             };
         });
     }, [skills]);
 
-    // Render state (calculated positions)
-    const [projectedPlanets, setProjectedPlanets] = useState([]);
+    // State for rendered particles
+    const [particles, setParticles] = useState([]);
 
-    const handleMouseDown = (e) => {
-        setIsDragging(true);
-        setLastMousePos({ x: e.clientX, y: e.clientY });
-    };
+    // Initialize particles ref
+    useEffect(() => {
+        particlesRef.current = initializeParticles.map(p => ({ ...p }));
+        setParticles([...particlesRef.current]);
+    }, [initializeParticles]);
 
-    const handleTouchStart = (e) => {
-        setIsDragging(true);
-        setLastMousePos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-    };
-
+    // Mouse handlers
     const handleMouseMove = (e) => {
-        if (!isDragging) return;
-        const deltaX = e.clientX - lastMousePos.x;
-        const deltaY = e.clientY - lastMousePos.y;
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        mouseRef.current = {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+            active: true
+        };
+    };
 
-        targetRotation.current.y += deltaX * 0.005;
-        targetRotation.current.x += deltaY * 0.005;
-
-        // Clamp X rotation to avoid flipping upside down too much
-        targetRotation.current.x = Math.max(-0.5, Math.min(1.0, targetRotation.current.x));
-
-        setLastMousePos({ x: e.clientX, y: e.clientY });
+    const handleMouseLeave = () => {
+        mouseRef.current.active = false;
     };
 
     const handleTouchMove = (e) => {
-        if (!isDragging) return;
-        const deltaX = e.touches[0].clientX - lastMousePos.x;
-        const deltaY = e.touches[0].clientY - lastMousePos.y;
-
-        targetRotation.current.y += deltaX * 0.005;
-        targetRotation.current.x += deltaY * 0.005;
-        targetRotation.current.x = Math.max(-0.5, Math.min(1.0, targetRotation.current.x));
-
-        setLastMousePos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        mouseRef.current = {
+            x: e.touches[0].clientX - rect.left,
+            y: e.touches[0].clientY - rect.top,
+            active: true
+        };
     };
 
-    const handleEnd = () => setIsDragging(false);
+    // Physics simulation
+    const simulate = () => {
+        const particles = particlesRef.current;
+        const time = Date.now() * 0.001;
 
-    useEffect(() => {
-        window.addEventListener('mouseup', handleEnd);
-        window.addEventListener('touchend', handleEnd);
-        return () => {
-            window.removeEventListener('mouseup', handleEnd);
-            window.removeEventListener('touchend', handleEnd);
-        };
-    }, []);
+        particles.forEach((p, i) => {
+            let fx = 0, fy = 0;
 
-    const animate = () => {
-        t.current += 1;
+            // 1. Attraction to orbit (like a spring to the orbit ring)
+            const dx = p.x - centerX;
+            const dy = p.y - centerY;
+            const distToCenter = Math.sqrt(dx * dx + dy * dy);
 
-        // Smooth rotation easing
-        rotation.current.x += (targetRotation.current.x - rotation.current.x) * 0.1;
-        rotation.current.y += (targetRotation.current.y - rotation.current.y) * 0.1;
+            if (distToCenter > 0) {
+                // Direction towards center
+                const nx = dx / distToCenter;
+                const ny = dy / distToCenter;
 
-        // Auto rotate Y slowly if not dragging
-        if (!isDragging) {
-            targetRotation.current.y += 0.002;
-        }
+                // Spring force to maintain orbit radius
+                const displacement = distToCenter - config.orbitRadius;
+                fx -= nx * displacement * config.orbitForce * 10;
+                fy -= ny * displacement * config.orbitForce * 10;
 
-        const calculated = planets.map(planet => {
-            // Orbital Movement
-            const currentAngle = planet.initialAngle + (t.current * planet.speed);
+                // Gentle orbital rotation force (tangential)
+                const tangentX = -ny;
+                const tangentY = nx;
+                fx += tangentX * 0.05;
+                fy += tangentY * 0.05;
+            }
 
-            // 3D coordinates (Local space, flat circle)
-            let x = Math.cos(currentAngle) * planet.radius;
-            let z = Math.sin(currentAngle) * planet.radius;
-            let y = planet.yOffset;
+            // 2. Repulsion from other particles
+            particles.forEach((other, j) => {
+                if (i === j) return;
+                const dx = p.x - other.x;
+                const dy = p.y - other.y;
+                const distSq = dx * dx + dy * dy;
+                const dist = Math.sqrt(distSq);
 
-            // Apply System Rotation (Camera Transform effectively)
+                if (dist > 0 && dist < 120) {
+                    const force = config.particleRepulsion / (distSq + 100);
+                    fx += (dx / dist) * force;
+                    fy += (dy / dist) * force;
+                }
+            });
 
-            // Rotate around X axis (Tilt)
-            const cosX = Math.cos(rotation.current.x);
-            const sinX = Math.sin(rotation.current.x);
-            const y1 = y * cosX - z * sinX;
-            const z1 = y * sinX + z * cosX;
-            y = y1;
-            z = z1;
+            // 3. Mouse repulsion
+            if (mouseRef.current.active) {
+                const mx = p.x - mouseRef.current.x;
+                const my = p.y - mouseRef.current.y;
+                const mouseDist = Math.sqrt(mx * mx + my * my);
 
-            // Rotate around Y axis (Spin)
-            const cosY = Math.cos(rotation.current.y);
-            const sinY = Math.sin(rotation.current.y);
-            const x2 = x * cosY - z * sinY;
-            const z2 = x * sinY + z * cosY;
-            x = x2;
-            z = z2;
+                if (mouseDist < config.mouseRadius && mouseDist > 0) {
+                    const force = config.mouseRepulsion / (mouseDist * mouseDist + 50);
+                    fx += (mx / mouseDist) * force;
+                    fy += (my / mouseDist) * force;
+                }
+            }
 
-            // Projection
-            // Simple perspective projection
-            const scale = perspective / (perspective + z);
-            const x2d = x * scale;
-            const y2d = y * scale;
+            // 4. Add some organic wobble
+            fx += Math.sin(time * 2 + i) * config.wobble;
+            fy += Math.cos(time * 2.5 + i * 0.7) * config.wobble;
 
-            return {
-                ...planet,
-                x: x2d,
-                y: y2d,
-                // Passing z for z-index sorting
-                z: z,
-                scale: scale
-            };
+            // Apply forces to velocity
+            p.vx += fx * 0.016; // dt ~16ms
+            p.vy += fy * 0.016;
+
+            // Apply friction
+            p.vx *= config.friction;
+            p.vy *= config.friction;
+
+            // Clamp velocity
+            const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+            if (speed > config.maxSpeed) {
+                p.vx = (p.vx / speed) * config.maxSpeed;
+                p.vy = (p.vy / speed) * config.maxSpeed;
+            }
+
+            // Update position
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Soft boundary (keep within container)
+            const margin = 50;
+            if (p.x < margin) { p.x = margin; p.vx *= -0.5; }
+            if (p.x > containerSize - margin) { p.x = containerSize - margin; p.vx *= -0.5; }
+            if (p.y < margin) { p.y = margin; p.vy *= -0.5; }
+            if (p.y > containerSize - margin) { p.y = containerSize - margin; p.vy *= -0.5; }
         });
 
-        // Sort by Z depth so items in back render first (if using simple stacking)
-        // However, React render order is fixed by array order unless we sort the array.
-        // It's better to use z-index style for performance rather than reordering DOM nodes constantly.
-        setProjectedPlanets(calculated);
-
-        requestRef.current = requestAnimationFrame(animate);
+        setParticles(particles.map(p => ({ ...p })));
+        requestRef.current = requestAnimationFrame(simulate);
     };
 
     useEffect(() => {
-        requestRef.current = requestAnimationFrame(animate);
+        requestRef.current = requestAnimationFrame(simulate);
         return () => cancelAnimationFrame(requestRef.current);
-    }, [planets, isDragging]);
+    }, []);
 
     return (
         <div
             className="solar-system-container"
             ref={containerRef}
-            onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
-            onTouchStart={handleTouchStart}
+            onMouseLeave={handleMouseLeave}
             onTouchMove={handleTouchMove}
+            onTouchEnd={handleMouseLeave}
         >
-            {/* Center Sun */}
-            {/* We project the sun too? Or keep it center? 
-               The sun is at (0,0,0). Rotation X/Y keeps it at (0,0,0) usually unless we translate.
-               But Z changes with rotation if it wasn't centered perfectly, but here it's 0.0.0.
-               Wait, rotating around X/Y of (0,0,0) is stable.
-               So Sun stays at center 0,0. scale = 1.
-            */}
+            {/* Center Category */}
             <div className="solar-center" style={{ zIndex: 10 }}>
                 <div className="center-label">{category.title}</div>
             </div>
 
-            {/* Orbit Ring Visual (Optional, hard to project perfectly with CSS border if tilted 
-                so we might skip it or use a simplified SVG overlay if requested.
-                For now, let's omit the ring lines or use a static one that fades out.)
-            */}
+            {/* Particles */}
+            {particles.map((p, i) => {
+                // Calculate distance from center for depth effect
+                const dx = p.x - centerX;
+                const dy = p.y - centerY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const scale = 0.85 + (dist / config.orbitRadius) * 0.15;
 
-            {projectedPlanets.map((p, i) => (
-                <div
-                    key={p.name}
-                    className="solar-object"
-                    style={{
-                        transform: `translate3d(${p.x}px, ${p.y}px, 0) scale(${p.scale})`,
-                        zIndex: Math.floor(100 - p.z), // Items in front (negative z in this math? wait. perspective + z. if z is negative = closer? )
-                        // math: scale = p / (p+z). if z is negative, scale > 1 (closer).
-                        // So negative z is closer. Higher z-index.
-                        // So zIndex = -z is good.
-                        // Or if z is positive (farther), scale < 1. 
-                        // So (1000 - z) works.
-                        opacity: Math.max(0.4, p.scale * 0.8) // Fade distant items slightly
-                    }}
-                >
-                    <div className="solar-badge">
-                        <span className="badge-icon">
-                            {iconMap[p.name] || <span className="text-icon">{p.name.substring(0, 2)}</span>}
-                        </span>
-                        <span className="badge-name">{p.name}</span>
+                return (
+                    <div
+                        key={p.name}
+                        className="solar-object"
+                        style={{
+                            transform: `translate(${p.x - centerX}px, ${p.y - centerY}px) scale(${scale})`,
+                            zIndex: 50 + i,
+                            transition: 'none',
+                        }}
+                    >
+                        <div className="solar-badge">
+                            <span className="badge-icon">
+                                {iconMap[p.name] || <span className="text-icon">{p.name.substring(0, 2)}</span>}
+                            </span>
+                            <span className="badge-name">{p.name}</span>
+                        </div>
                     </div>
-                </div>
-            ))}
+                );
+            })}
 
             {/* Interactive hint */}
-            <div className="interaction-hint">Drag to rotate</div>
+            <div className="interaction-hint">Move mouse to interact</div>
         </div>
     );
 };
