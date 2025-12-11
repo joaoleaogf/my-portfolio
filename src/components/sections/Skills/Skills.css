@@ -116,6 +116,8 @@
     color: var(--color-text-primary);
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-align: center;
+    line-height: 1.2;
 }
 
 .solar-object {
