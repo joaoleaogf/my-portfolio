@@ -1,5 +1,5 @@
 import React from 'react';
-import { skillsCategories } from '../data/skills';
+import { skillsCategories } from '../../../data/skills';
 import SolarSystem from './SolarSystem';
 import './Skills.css';
 

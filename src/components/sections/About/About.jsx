@@ -1,5 +1,5 @@
 import React from 'react';
-import { experience, education } from '../data/skills';
+import { experience, education } from '../../../data/skills';
 import './About.css';
 
 const About = () => {

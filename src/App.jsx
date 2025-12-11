@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import Header from './components/layout/Header/Header';
+import Hero from './components/sections/Hero/Hero';
+import About from './components/sections/About/About';
+import Projects from './components/sections/Projects/Projects';
+import Skills from './components/sections/Skills/Skills';
+import Contact from './components/sections/Contact/Contact';
+import Footer from './components/layout/Footer/Footer';
 
 function App() {
     useEffect(() => {
