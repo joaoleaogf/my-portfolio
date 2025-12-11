@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { FiMenu, FiX, FiGithub } from 'react-icons/fi';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const isHomePage = location.pathname === '/';
 
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
-            // Update active section based on scroll position
-            const sections = ['home', 'about', 'projects', 'skills', 'contact'];
-            const scrollPosition = window.scrollY + 100;
+            if (isHomePage) {
+                // Update active section based on scroll position only on homepage
+                const sections = ['home', 'about', 'projects', 'skills', 'contact'];
+                const scrollPosition = window.scrollY + 100;
 
-            for (const section of sections) {
-                const element = document.getElementById(section);
-                if (element) {
-                    const offsetTop = element.offsetTop;
-                    const offsetBottom = offsetTop + element.offsetHeight;
+                for (const section of sections) {
+                    const element = document.getElementById(section);
+                    if (element) {
+                        const offsetTop = element.offsetTop;
+                        const offsetBottom = offsetTop + element.offsetHeight;
 
-                    if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-                        setActiveSection(section);
-                        break;
+                        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+                            setActiveSection(section);
+                            break;
+                        }
                     }
                 }
             }
@@ -31,13 +38,30 @@ const Header = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [isHomePage]);
 
-    const scrollToSection = (sectionId) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            setIsMobileMenuOpen(false);
+    const handleNavigation = (sectionId) => {
+        setIsMobileMenuOpen(false);
+
+        if (sectionId === 'blog') {
+            navigate('/blog');
+            return;
+        }
+
+        if (!isHomePage) {
+            navigate('/');
+            // Wait for navigation to complete then scroll
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        } else {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     };
 
@@ -46,6 +70,7 @@ const Header = () => {
         { id: 'about', label: 'Sobre' },
         { id: 'projects', label: 'Projetos' },
         { id: 'skills', label: 'Habilidades' },
+        { id: 'blog', label: 'Blog' },
         { id: 'contact', label: 'Contato' }
     ];
 
@@ -53,7 +78,7 @@ const Header = () => {
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container">
                 <nav className="nav">
-                    <div className="nav-brand">
+                    <div className="nav-brand" onClick={() => handleNavigation('home')} style={{ cursor: 'pointer' }}>
                         <span className="brand-text">João Leão</span>
                         <span className="brand-tag">Developer</span>
                     </div>
@@ -63,8 +88,11 @@ const Header = () => {
                         {navItems.map(item => (
                             <li key={item.id}>
                                 <button
-                                    onClick={() => scrollToSection(item.id)}
-                                    className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                                    onClick={() => handleNavigation(item.id)}
+                                    className={`nav-link ${activeSection === item.id && isHomePage && item.id !== 'blog'
+                                            ? 'active'
+                                            : (item.id === 'blog' && location.pathname === '/blog' ? 'active' : '')
+                                        }`}
                                 >
                                     {item.label}
                                 </button>
@@ -100,8 +128,11 @@ const Header = () => {
                             {navItems.map(item => (
                                 <li key={item.id}>
                                     <button
-                                        onClick={() => scrollToSection(item.id)}
-                                        className={`mobile-nav-link ${activeSection === item.id ? 'active' : ''}`}
+                                        onClick={() => handleNavigation(item.id)}
+                                        className={`mobile-nav-link ${activeSection === item.id && isHomePage && item.id !== 'blog'
+                                                ? 'active'
+                                                : (item.id === 'blog' && location.pathname === '/blog' ? 'active' : '')
+                                            }`}
                                     >
                                         {item.label}
                                     </button>

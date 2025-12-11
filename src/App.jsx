@@ -1,13 +1,11 @@
 import React, { Suspense, lazy } from 'react';
-const Header = lazy(() => import('./components/layout/Header/Header'));
-const Hero = lazy(() => import('./components/sections/Hero/Hero'));
-const About = lazy(() => import('./components/sections/About/About'));
-const Projects = lazy(() => import('./components/sections/Projects/Projects'));
-const Skills = lazy(() => import('./components/sections/Skills/Skills'));
-const Contact = lazy(() => import('./components/sections/Contact/Contact'));
-const Footer = lazy(() => import('./components/layout/Footer/Footer'));
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Reveal from './components/common/Reveal';
+const Header = lazy(() => import('./components/layout/Header/Header'));
+const Footer = lazy(() => import('./components/layout/Footer/Footer'));
+const Home = lazy(() => import('./pages/Home'));
+const Blog = lazy(() => import('./pages/Blog'));
+
 import SEO from './components/common/SEO';
 
 const LoadingFallback = () => (
@@ -37,28 +35,21 @@ const LoadingFallback = () => (
 
 function App() {
     return (
-        <div className="App">
-            <SEO />
-            <Suspense fallback={<LoadingFallback />}>
-                <Header />
-                <main>
-                    <Hero />
-                    <Reveal width="100%">
-                        <About />
-                    </Reveal>
-                    <Reveal width="100%">
-                        <Projects />
-                    </Reveal>
-                    <Reveal width="100%">
-                        <Skills />
-                    </Reveal>
-                    <Reveal width="100%">
-                        <Contact />
-                    </Reveal>
-                </main>
-                <Footer />
-            </Suspense>
-        </div>
+        <BrowserRouter>
+            <div className="App">
+                <SEO />
+                <Suspense fallback={<LoadingFallback />}>
+                    <Header />
+                    <main>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/blog" element={<Blog />} />
+                        </Routes>
+                    </main>
+                    <Footer />
+                </Suspense>
+            </div>
+        </BrowserRouter>
     );
 }
 
