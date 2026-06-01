@@ -1,0 +1,29 @@
+.not-found {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 0 var(--spacing-3xl);
+}
+
+.nf-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+}
+
+.nf-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-5xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-md);
+}
+
+.nf-text {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 460px;
+  margin-bottom: var(--spacing-xl);
+}
