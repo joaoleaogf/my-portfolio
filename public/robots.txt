@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# TODO: trocar pelo domínio de produção
-Sitemap: https://my-portfolio.vercel.app/sitemap.xml
+Sitemap: https://joaoleao.fun/sitemap.xml
