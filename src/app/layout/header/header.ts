@@ -9,6 +9,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ThemeService } from '../../core/theme';
 
 interface NavItem {
   id: string;
@@ -25,6 +26,9 @@ interface NavItem {
 export class Header {
   private readonly doc = inject(DOCUMENT);
   private readonly router = inject(Router);
+  private readonly themeService = inject(ThemeService);
+
+  protected readonly theme = this.themeService.theme;
 
   protected readonly isScrolled = signal(false);
   private readonly activeSection = signal('home');
@@ -89,5 +93,9 @@ export class Header {
 
   protected toggleMobileMenu(): void {
     this.mobileMenuOpen.update((open) => !open);
+  }
+
+  protected toggleTheme(): void {
+    this.themeService.toggle();
   }
 }

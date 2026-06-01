@@ -34,6 +34,15 @@
 
       <button
         type="button"
+        class="theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-label]="theme() === 'dark' ? 'Mudar para o tema claro' : 'Mudar para o tema escuro'"
+      >
+        {{ theme() === 'dark' ? 'claro' : 'escuro' }}
+      </button>
+
+      <button
+        type="button"
         class="mobile-menu-toggle"
         (click)="toggleMobileMenu()"
         aria-label="Toggle menu"

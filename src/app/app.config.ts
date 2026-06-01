@@ -2,11 +2,15 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes), provideClientHydration(withEventReplay())
-  ]
+    provideRouter(routes),
+    // Sem withEventReplay(): evita o script inline de event-replay (violava a CSP
+    // 'script-src self' e causava "i.map is not a function" na hidratação). Site
+    // é estático/prerenderizado, então event replay agrega pouco.
+    provideClientHydration(),
+  ],
 };

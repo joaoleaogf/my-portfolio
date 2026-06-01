@@ -46,7 +46,9 @@
 }
 
 .hero-name {
-    font-style: italic;
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: -0.02em;
     color: var(--color-accent);
 }
 
@@ -123,12 +125,6 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(0.35) contrast(1.02);
-    transition: filter var(--transition-slow);
-}
-
-.hero-portrait-frame:hover .hero-portrait-img {
-    filter: grayscale(0) contrast(1);
 }
 
 /* Placeholder só aparece quando não há foto (img falha no onError) */

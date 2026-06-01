@@ -134,7 +134,8 @@
 }
 
 .map-overlay {
-    background: rgba(16, 16, 18, 0.9);
+    background: var(--color-backdrop);
+    backdrop-filter: blur(6px);
     padding: var(--spacing-md);
     position: absolute;
     bottom: var(--spacing-md);

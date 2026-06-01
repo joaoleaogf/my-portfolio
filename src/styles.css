@@ -7,6 +7,8 @@
 
 /* ===== CSS Custom Properties ===== */
 :root {
+  color-scheme: dark;
+
   /* Surfaces — dark sólido, sem mesh/gradiente */
   --color-bg-primary: #101012;
   --color-bg-secondary: #161618;
@@ -29,6 +31,9 @@
   --color-accent-contrast: #1a1408;
   --color-accent-soft: rgba(224, 164, 88, 0.14);
   --color-accent-border: rgba(224, 164, 88, 0.40);
+
+  /* Fundo translúcido (header ao rolar + overlay do mapa) */
+  --color-backdrop: rgba(16, 16, 18, 0.9);
 
   /* Aliases de compatibilidade — refs antigas passam a usar o acento único */
   --color-accent-blue: var(--color-accent);
@@ -89,6 +94,49 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
+}
+
+/* ===== Tema claro ===== */
+/* Ativado por data-theme="light" no <html> (definido por public/theme-init.js
+   antes do paint e pelo ThemeService em runtime). Mesma identidade âmbar,
+   superfícies em papel quente; acento escurecido p/ manter contraste AA. */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg-primary: #f4f1ea;
+  --color-bg-secondary: #ece8df;
+  --color-bg-tertiary: #e3ded2;
+  --color-surface: #fcfbf8;
+  --color-surface-raised: #ffffff;
+
+  --color-border: rgba(26, 24, 21, 0.12);
+  --color-border-strong: rgba(26, 24, 21, 0.22);
+
+  --color-text-primary: #1f1c17;
+  --color-text-secondary: #5b554b;
+  --color-text-muted: #6b655b;
+
+  /* Âmbar escurecido p/ contraste em fundo claro (≥4.5:1 como texto/link) */
+  --color-accent: #96631a;
+  --color-accent-hover: #7c5113;
+  --color-accent-contrast: #fffdf7;
+  --color-accent-soft: rgba(150, 99, 26, 0.12);
+  --color-accent-border: rgba(150, 99, 26, 0.40);
+
+  --color-backdrop: rgba(244, 241, 234, 0.9);
+}
+
+/* Transição suave ao alternar tema */
+body,
+.header,
+.glass-card,
+.project-card,
+.timeline-content,
+.education-item,
+.specialty-card,
+.skill-block,
+.contact-card {
+  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
 }
 
 /* ===== Base Styles ===== */
