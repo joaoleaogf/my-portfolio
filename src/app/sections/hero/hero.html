@@ -1,0 +1,65 @@
+<section id="home" class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <p class="hero-greeting">oi, prazer 👋</p>
+
+        <h1 class="hero-title">
+          Eu sou o <span class="hero-name">João</span>.
+        </h1>
+
+        <p class="hero-statement">
+          Construo <strong>backends</strong>, <strong>pipelines de dados</strong> e
+          <strong> mapas</strong> — e gosto mesmo é da parte chata: deixar o dado
+          limpo, a query rápida e o sistema de pé em produção.
+        </p>
+
+        <p class="hero-description">
+          Trabalho na DDMX, em Itajubá-MG, com ETL, APIs REST e dashboards de BI
+          (Elasticsearch + Highcharts). Quando sobra tempo, brinco com
+          geoprocessamento e roteirização.
+        </p>
+
+        <div class="hero-cta">
+          <button type="button" (click)="scrollToContact()" class="btn btn-primary">
+            Vamos conversar
+          </button>
+          <a
+            href="https://github.com/joaoleaogf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline"
+          >
+            Ver GitHub ↗
+          </a>
+        </div>
+
+        <div class="hero-social">
+          <a href="https://github.com/joaoleaogf" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <span class="hero-social-sep">·</span>
+          <a href="https://www.linkedin.com/in/joão-leão-630a94170/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <span class="hero-social-sep">·</span>
+          <a href="mailto:joaoleao.gf@gmail.com">Email</a>
+        </div>
+      </div>
+
+      <div class="hero-portrait">
+        <div class="hero-portrait-frame">
+          <img
+            src="/images/profile.png"
+            alt="João Leão"
+            class="hero-portrait-img"
+            width="280"
+            height="340"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            (error)="onImageError($event)"
+          />
+          <span class="hero-portrait-placeholder" aria-hidden="true">JL</span>
+        </div>
+        <span class="hero-signature" aria-hidden="true">João</span>
+      </div>
+    </div>
+  </div>
+</section>

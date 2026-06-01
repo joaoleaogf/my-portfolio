@@ -1,0 +1,47 @@
+@let p = project();
+<article class="project-card glass-card">
+  <div class="project-media">
+    <img
+      [src]="p.image"
+      [alt]="p.imageAlt || p.title"
+      class="project-image"
+      loading="lazy"
+      decoding="async"
+    />
+    @if (p.featured) {
+      <span class="featured-badge">destaque</span>
+    }
+  </div>
+
+  <div class="project-body">
+    <h3 class="project-title">{{ p.title }}</h3>
+    <p class="project-description">{{ p.description }}</p>
+
+    @if (p.highlights.length) {
+      <ul class="project-highlights">
+        @for (highlight of p.highlights; track highlight) {
+          <li>{{ highlight }}</li>
+        }
+      </ul>
+    }
+
+    <div class="project-technologies">
+      @for (tech of p.technologies; track tech) {
+        <span class="tech-tag">{{ tech }}</span>
+      }
+    </div>
+
+    <div class="project-footer">
+      @if (p.demoUrl) {
+        <a [href]="p.demoUrl" target="_blank" rel="noopener noreferrer" class="project-link">
+          Ver projeto <span aria-hidden="true">↗</span>
+        </a>
+      }
+      @if (p.githubUrl) {
+        <a [href]="p.githubUrl" target="_blank" rel="noopener noreferrer" class="project-link">
+          Ver código <span aria-hidden="true">↗</span>
+        </a>
+      }
+    </div>
+  </div>
+</article>

@@ -1,0 +1,92 @@
+<section id="about" class="section about">
+  <div class="container">
+    <header class="section-head">
+      <p class="section-eyebrow">01 — um pouco sobre mim</p>
+      <h2 class="section-title">Quem é o João</h2>
+    </header>
+
+    <div class="about-content">
+      <div class="about-intro">
+        <p class="about-text">
+          Comecei na DDMX como estagiário em 2021 e fui ficando — hoje sou
+          <strong> Desenvolvedor de Software</strong> por lá. No caminho me apaixonei
+          por <strong>backend</strong>, <strong>ETL</strong> e <strong>geoprocessamento</strong>:
+          gosto de pegar dado bagunçado e transformar em algo que as pessoas
+          realmente conseguem usar.
+        </p>
+        <p class="about-text">
+          No dia a dia escrevo APIs REST, construo pipelines de dados e mantenho
+          dashboards de BI com Elasticsearch e Highcharts. Meu foco é o que não
+          aparece na tela: deixar a solução <strong>robusta, rápida e fácil de manter</strong>.
+        </p>
+      </div>
+
+      <div class="about-sections">
+        <div class="about-section">
+          <h3 class="about-section-title">Por onde passei</h3>
+          <div class="timeline">
+            @for (exp of experience; track exp.id) {
+              <div class="timeline-item" [class.current]="exp.current">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <h4>{{ exp.role }}</h4>
+                    @if (exp.current) {
+                      <span class="current-badge">atual</span>
+                    }
+                  </div>
+                  <p class="timeline-company">{{ exp.company }} · {{ exp.type }}</p>
+                  <p class="timeline-period">{{ exp.period }} · {{ duration(exp) }}</p>
+                  <p class="timeline-location">{{ exp.location }}</p>
+                  <p class="timeline-description">{{ exp.description }}</p>
+                  @if (exp.highlights.length) {
+                    <ul class="timeline-highlights">
+                      @for (highlight of exp.highlights; track highlight) {
+                        <li>{{ highlight }}</li>
+                      }
+                    </ul>
+                  }
+                  @if (exp.skills.length) {
+                    <div class="timeline-skills">
+                      @for (skill of exp.skills; track skill) {
+                        <span class="timeline-skill-tag">{{ skill }}</span>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="about-section">
+          <h3 class="about-section-title">Formação</h3>
+          <div class="education">
+            @for (edu of education; track edu.id) {
+              <div class="education-item">
+                <div class="education-content">
+                  <h4>{{ edu.degree }}</h4>
+                  <p class="education-institution">{{ edu.institution }}</p>
+                  <p class="education-period">{{ edu.period }}</p>
+                  <p class="education-description">{{ edu.description }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="specialties">
+        <h3 class="about-section-title">No que eu mando bem</h3>
+        <div class="specialties-grid">
+          @for (item of specialties; track item.id) {
+            <div class="specialty-card">
+              <h4>{{ item.title }}</h4>
+              <p>{{ item.description }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

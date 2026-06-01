@@ -1,0 +1,52 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <span class="footer-signature" aria-hidden="true">João</span>
+        <p class="footer-tagline">
+          Dado limpo, query rápida, sistema de pé. Feito em Itajubá-MG.
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-title">Navegação</h4>
+        <ul class="footer-links">
+          <li><button type="button" (click)="scrollToSection('home')">Início</button></li>
+          <li><button type="button" (click)="scrollToSection('about')">Sobre</button></li>
+          <li><button type="button" (click)="scrollToSection('projects')">Projetos</button></li>
+          <li><button type="button" (click)="scrollToSection('skills')">Habilidades</button></li>
+          <li><button type="button" (click)="scrollToSection('contact')">Contato</button></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-title">Por aí</h4>
+        <ul class="footer-links">
+          <li>
+            <a href="https://github.com/joaoleaogf" target="_blank" rel="noopener noreferrer">
+              GitHub ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/joão-leão-630a94170/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn ↗
+            </a>
+          </li>
+          <li>
+            <a href="mailto:joaoleao.gf@gmail.com">Email ↗</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">
+        © {{ currentYear }} João Leão — feito à mão com Angular.
+      </p>
+    </div>
+  </div>
+</footer>
