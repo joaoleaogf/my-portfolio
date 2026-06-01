@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiMenu, FiX, FiGithub } from 'react-icons/fi';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
@@ -90,7 +89,7 @@ const Header = () => {
                 <nav className="nav">
                     <div className="nav-brand" onClick={() => handleNavigation('home')} style={{ cursor: 'pointer' }}>
                         <span className="brand-text">João Leão</span>
-                        <span className="brand-tag">Developer</span>
+                        <span className="brand-tag">dev · dados · mapas</span>
                     </div>
 
                     {/* Desktop Navigation */}
@@ -118,7 +117,7 @@ const Header = () => {
                         className="github-link"
                         aria-label="GitHub Profile"
                     >
-                        <FiGithub size={24} />
+                        GitHub ↗
                     </a>
 
                     {/* Mobile Menu Toggle */}
@@ -127,7 +126,7 @@ const Header = () => {
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
-                        {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+                        {isMobileMenuOpen ? 'fechar' : 'menu'}
                     </button>
                 </nav>
 

@@ -1,6 +1,5 @@
-
-import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
+import React from 'react';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, CircleMarker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -9,53 +8,71 @@ const customIcon = L.divIcon({
     className: 'custom-marker-icon',
     html: '<div class="marker-pin"></div>',
     iconSize: [20, 20],
-    iconAnchor: [10, 10] // Center
+    iconAnchor: [10, 10]
 });
 
 const MapComponent = () => {
     // Itajubá coordinates
     const centerPosition = [-22.4269, -45.4539];
-    const [geoJsonData, setGeoJsonData] = useState(null);
-
-    useEffect(() => {
-        // Fetch Itajubá boundary (Code 3132404)
-        fetch('https://servicodados.ibge.gov.br/api/v3/malhas/municipios/3132404?formato=application/vnd.geo+json')
-            .then(response => response.json())
-            .then(data => {
-                setGeoJsonData(data);
-            })
-            .catch(error => console.error('Error loading GeoJSON:', error));
-    }, []);
-
-    const geoJsonStyle = {
-        color: '#58a6ff',
-        weight: 2,
-        fillColor: '#1f6feb',
-        fillOpacity: 0.2,
-        dashArray: '5, 5' // Dashed line
-    };
+    
+    // Mock route for demonstration of routing/graph analysis
+    const routeCoordinates = [
+        [-22.4269, -45.4539],
+        [-22.4220, -45.4490],
+        [-22.4180, -45.4510],
+        [-22.4150, -45.4560],
+        [-22.4190, -45.4600]
+    ];
 
     return (
         <MapContainer
             center={centerPosition}
-            zoom={12} // Adjusted zoom to see the boundary
+            zoom={13}
             scrollWheelZoom={false}
             style={{ height: "100%", width: "100%", borderRadius: "inherit" }}
-            zoomControl={false} // Custom control position or remove if cleaner
-            attributionControl={false} // Clean up
+            zoomControl={true}
+            attributionControl={false}
         >
             <TileLayer
-                // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             />
 
-            {geoJsonData && <GeoJSON data={geoJsonData} style={geoJsonStyle} />}
+            {/* Routing demonstration */}
+            <Polyline
+                positions={routeCoordinates}
+                color="#E0A458"
+                weight={3}
+                dashArray="5, 10"
+                opacity={0.8}
+            />
 
-            <Marker position={centerPosition} icon={customIcon}>
+            {/* Start Node */}
+            <Marker position={routeCoordinates[0]} icon={customIcon}>
                 <Popup className="custom-popup">
-                    <strong>Itajubá</strong> <br /> Minas Gerais
+                    <strong>Ponto de Partida</strong> <br /> Análise de Rota
                 </Popup>
             </Marker>
+
+            {/* End Node */}
+            <CircleMarker 
+                center={routeCoordinates[routeCoordinates.length - 1]} 
+                radius={6}
+                pathOptions={{ color: '#E0A458', fillColor: '#ecb978', fillOpacity: 0.8 }}
+            >
+                <Popup className="custom-popup">
+                    <strong>Destino</strong> <br /> Otimização Concluída
+                </Popup>
+            </CircleMarker>
+            
+            {/* Intermediate Nodes */}
+            {routeCoordinates.slice(1, routeCoordinates.length - 1).map((pos, idx) => (
+                <CircleMarker 
+                    key={idx}
+                    center={pos} 
+                    radius={4} 
+                    pathOptions={{ color: '#ffffff', fillColor: '#fff', fillOpacity: 0.5, weight: 1 }}
+                />
+            ))}
         </MapContainer>
     );
 };

@@ -2,49 +2,53 @@
     background: var(--color-bg-primary);
 }
 
+.section-head {
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-head .section-title {
+    margin-bottom: var(--spacing-sm);
+}
+
 .projects-subtitle {
-    text-align: center;
     font-size: var(--font-size-lg);
     color: var(--color-text-secondary);
-    max-width: 700px;
-    margin: 0 auto var(--spacing-2xl);
+    max-width: 560px;
+    line-height: 1.7;
 }
 
 .projects-filter {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-2xl);
+    gap: 8px;
+    margin-bottom: var(--spacing-xl);
 }
 
 .filter-btn {
-    padding: var(--spacing-xs) var(--spacing-md);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     color: var(--color-text-secondary);
+    font-family: var(--font-mono);
     font-size: var(--font-size-sm);
-    font-weight: 600;
     cursor: pointer;
-    transition: all var(--transition-base);
+    transition: border-color var(--transition-base), color var(--transition-base);
 }
 
 .filter-btn:hover {
-    background: rgba(31, 111, 235, 0.1);
-    border-color: var(--color-accent-blue);
-    color: var(--color-accent-blue);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-primary);
 }
 
 .filter-btn.active {
-    background: var(--gradient-primary);
-    border-color: transparent;
-    color: white;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--spacing-lg);
     margin-bottom: var(--spacing-2xl);
 }
@@ -56,8 +60,7 @@
 }
 
 .projects-footer {
-    text-align: center;
-    margin-top: var(--spacing-2xl);
+    margin-top: var(--spacing-lg);
 }
 
 @media (max-width: 768px) {
@@ -66,6 +69,14 @@
     }
 
     .projects-filter {
-        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .projects-filter::-webkit-scrollbar {
+        display: none;
     }
 }

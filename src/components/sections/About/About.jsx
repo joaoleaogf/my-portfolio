@@ -1,34 +1,35 @@
 import React from 'react';
-import { experience, education } from '../../../data/skills';
+import { experience, education, specialties } from '../../../data/skills';
 import './About.css';
 
 const About = () => {
     return (
         <section id="about" className="section about">
             <div className="container">
-                <h2 className="section-title">Sobre Mim</h2>
+                <header className="section-head">
+                    <p className="section-eyebrow">01 — um pouco sobre mim</p>
+                    <h2 className="section-title">Quem é o João</h2>
+                </header>
 
                 <div className="about-content">
-                    <div className="about-intro glass-card">
+                    <div className="about-intro">
                         <p className="about-text">
-                            Olá! Sou <strong>João Leão</strong>, desenvolvedor especializado em <strong>ETL</strong>,
-                            <strong> Geoprocessamento</strong> e <strong>Backend</strong>. Atualmente trabalho na <strong>DDMX </strong>
-                            como Desenvolvedor de Software, onde transformo dados complexos em soluções acionáveis.
+                            Comecei na DDMX como estagiário em 2021 e fui ficando — hoje sou
+                            <strong> Desenvolvedor de Software</strong> por lá. No caminho me apaixonei
+                            por <strong>backend</strong>, <strong>ETL</strong> e <strong>geoprocessamento</strong>:
+                            gosto de pegar dado bagunçado e transformar em algo que as pessoas
+                            realmente conseguem usar.
                         </p>
                         <p className="about-text">
-                            Minha missão é <strong>conectar tecnologia e geografia</strong> para resolver problemas reais,
-                            utilizando ferramentas como Node.js, Python, PostGIS e QGIS para criar pipelines de dados robustos
-                            e análises espaciais avançadas.
+                            No dia a dia escrevo APIs REST, construo pipelines de dados e mantenho
+                            dashboards de BI com Elasticsearch e Highcharts. Meu foco é o que não
+                            aparece na tela: deixar a solução <strong>robusta, rápida e fácil de manter</strong>.
                         </p>
                     </div>
 
                     <div className="about-sections">
-                        {/* Experience Section */}
                         <div className="about-section">
-                            <h3 className="about-section-title">
-                                <span className="section-icon">💼</span>
-                                Experiência Profissional
-                            </h3>
+                            <h3 className="about-section-title">Por onde passei</h3>
                             <div className="timeline">
                                 {experience.map(exp => (
                                     <div key={exp.id} className={`timeline-item ${exp.current ? 'current' : ''}`}>
@@ -36,28 +37,37 @@ const About = () => {
                                         <div className="timeline-content">
                                             <div className="timeline-header">
                                                 <h4>{exp.role}</h4>
-                                                {exp.current && <span className="current-badge">Atual</span>}
+                                                {exp.current && <span className="current-badge">atual</span>}
                                             </div>
-                                            <p className="timeline-company">{exp.company}</p>
-                                            <p className="timeline-period">{exp.period} • {exp.duration}</p>
+                                            <p className="timeline-company">{exp.company} · {exp.type}</p>
+                                            <p className="timeline-period">{exp.period} · {exp.duration}</p>
                                             <p className="timeline-location">{exp.location}</p>
                                             <p className="timeline-description">{exp.description}</p>
+                                            {exp.highlights && exp.highlights.length > 0 && (
+                                                <ul className="timeline-highlights">
+                                                    {exp.highlights.map((highlight, index) => (
+                                                        <li key={index}>{highlight}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                            {exp.skills && exp.skills.length > 0 && (
+                                                <div className="timeline-skills">
+                                                    {exp.skills.map((skill, index) => (
+                                                        <span key={index} className="timeline-skill-tag">{skill}</span>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        {/* Education Section */}
                         <div className="about-section">
-                            <h3 className="about-section-title">
-                                <span className="section-icon">🎓</span>
-                                Formação Acadêmica
-                            </h3>
+                            <h3 className="about-section-title">Formação</h3>
                             <div className="education">
                                 {education.map(edu => (
-                                    <div key={edu.id} className="education-item glass-card">
-                                        <div className="education-logo">{edu.logo}</div>
+                                    <div key={edu.id} className="education-item">
                                         <div className="education-content">
                                             <h4>{edu.degree}</h4>
                                             <p className="education-institution">{edu.institution}</p>
@@ -70,33 +80,15 @@ const About = () => {
                         </div>
                     </div>
 
-                    {/* Specialties */}
                     <div className="specialties">
-                        <h3 className="about-section-title">
-                            <span className="section-icon">💡</span>
-                            Minhas Especialidades
-                        </h3>
+                        <h3 className="about-section-title">No que eu mando bem</h3>
                         <div className="specialties-grid">
-                            <div className="specialty-card glass-card">
-                                <div className="specialty-icon">⚡</div>
-                                <h4>ETL & Pipelines</h4>
-                                <p>Criação de pipelines robustos para processamento de grandes volumes de dados</p>
-                            </div>
-                            <div className="specialty-card glass-card">
-                                <div className="specialty-icon">🗺️</div>
-                                <h4>Geoprocessamento</h4>
-                                <p>Análise espacial, geocodificação e visualização de dados geográficos</p>
-                            </div>
-                            <div className="specialty-card glass-card">
-                                <div className="specialty-icon">⚙️</div>
-                                <h4>Backend</h4>
-                                <p>Desenvolvimento de APIs RESTful, microserviços e arquiteturas escaláveis</p>
-                            </div>
-                            <div className="specialty-card glass-card">
-                                <div className="specialty-icon">📊</div>
-                                <h4>Análise Espacial</h4>
-                                <p>Transformação de dados em insights através de análises geoespaciais</p>
-                            </div>
+                            {specialties.map(item => (
+                                <div key={item.id} className="specialty-card">
+                                    <h4>{item.title}</h4>
+                                    <p>{item.description}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

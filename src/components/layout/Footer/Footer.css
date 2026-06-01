@@ -1,6 +1,6 @@
 .footer {
-    background: var(--color-bg-secondary);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--color-bg-primary);
+    border-top: 1px solid var(--color-border);
     padding: var(--spacing-3xl) 0 var(--spacing-lg);
 }
 
@@ -10,30 +10,30 @@
     gap: var(--spacing-2xl);
     margin-bottom: var(--spacing-2xl);
     padding-bottom: var(--spacing-2xl);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--color-border);
 }
 
-.footer-brand {
-    font-size: var(--font-size-2xl);
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.footer-signature {
+    display: inline-block;
+    font-family: var(--font-script);
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--color-accent);
     margin: 0 0 var(--spacing-sm) 0;
 }
 
 .footer-tagline {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    max-width: 280px;
+    max-width: 300px;
 }
 
 .footer-title {
-    font-size: var(--font-size-base);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
     color: var(--color-text-primary);
     margin: 0 0 var(--spacing-md) 0;
-    font-weight: 600;
+    letter-spacing: 0.02em;
 }
 
 .footer-links {
@@ -50,6 +50,7 @@
     background: none;
     border: none;
     color: var(--color-text-secondary);
+    font-family: var(--font-mono);
     font-size: var(--font-size-sm);
     cursor: pointer;
     transition: color var(--transition-base);
@@ -60,7 +61,7 @@
 
 .footer-links button:hover,
 .footer-links a:hover {
-    color: var(--color-accent-blue);
+    color: var(--color-accent);
 }
 
 .footer-bottom {
@@ -71,35 +72,11 @@
     gap: var(--spacing-md);
 }
 
-.footer-copyright,
-.footer-tech {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
+.footer-copyright {
+    font-family: var(--font-mono);
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
     margin: 0;
-}
-
-.heart-icon {
-    color: #ff4757;
-    animation: heartbeat 1.5s ease-in-out infinite;
-}
-
-@keyframes heartbeat {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    25% {
-        transform: scale(1.1);
-    }
-
-    50% {
-        transform: scale(1);
-    }
 }
 
 @media (max-width: 768px) {

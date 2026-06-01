@@ -1,28 +1,45 @@
 export const projects = [
     {
-        id: 9,
-        emoji: '⏱️',
-        title: 'Rastreador de Tempo',
-        description: 'Aplicação moderna de rastreamento de tempo com design glassmorphism e integração com Supabase',
+        id: 10,
+        title: 'Dashboard Interativo BI',
+        image: '/images/projects/bi-dashboard.jpg',
+        imageAlt: 'Dashboard com gráficos de Business Intelligence',
+        description: 'Desenvolvimento de dashboards de Business Intelligence (BI) com Elasticsearch e Highcharts para visualização avançada e em tempo real de grandes volumes de dados operacionais.',
         highlights: [
-            'Cronômetro integrado com persistência',
-            'Dashboard analítico com gráficos interativos',
-            'Design Glassmorphism com Dark Mode',
-            'Suporte multi-usuário e multi-projeto'
+            'Consultas otimizadas no Elasticsearch para milhões de registros',
+            'Gráficos dinâmicos e responsivos com Highcharts',
+            'Filtros interativos e relatórios exportáveis'
+        ],
+        technologies: ['Elasticsearch', 'Highcharts', 'JavaScript', 'Node.js'],
+        demoUrl: '#',
+        featured: true
+    },
+    {
+        id: 9,
+        title: 'Rastreador de Tempo',
+        image: '/images/projects/rastreador-tempo.jpg',
+        imageAlt: 'Dashboard com gráficos de produtividade',
+        description: 'App para registrar horas por projeto, com cronômetro, histórico e gráficos. Backend no Supabase.',
+        highlights: [
+            'Cronômetro com dados salvos entre sessões',
+            'Dashboard com Chart.js',
+            'Interface dark com Tailwind',
+            'Vários usuários e projetos'
         ],
         technologies: ['JavaScript', 'Supabase', 'TailwindCSS', 'Chart.js'],
-        demoUrl: 'https://www.joaoleaogf/rastreador-tempo',
+        demoUrl: 'https://rastreador-tempo.vercel.app',
         featured: true
     },
     {
         id: 1,
-        emoji: '🩺',
         title: 'ETL GeoSaúde Itajubá',
-        description: 'Pipeline ETL robusto para dados de saúde com geocodificação avançada e análise espacial',
+        image: '/images/projects/etl-geosaude.jpg',
+        imageAlt: 'Mapa com dados geoespaciais de saúde',
+        description: 'Pipeline em Python para limpar, geocodificar e publicar dados de saúde de Itajubá no PostGIS.',
         highlights: [
-            'Geocodificação inteligente com múltiplas estratégias',
-            'Normalização automática de endereços',
-            'Integração completa com QGIS'
+            'Geocodificação com fallback entre APIs',
+            'Padronização de endereços antes do load',
+            'Camadas prontas para abrir no QGIS'
         ],
         technologies: ['Python', 'PostGIS', 'QGIS', 'ETL', 'Geocoding'],
         githubUrl: 'https://github.com/joaoleaogf/etl-geosaude-itajuba',
@@ -30,13 +47,14 @@ export const projects = [
     },
     {
         id: 2,
-        emoji: '🚗',
         title: 'FIPE ETL',
-        description: 'Sistema escalável para processamento da Tabela FIPE com orquestração completa',
+        image: '/images/projects/fipe-etl.jpg',
+        imageAlt: 'Carros em concessionária',
+        description: 'Coleta e transformação da Tabela FIPE em Node.js, com jobs agendados e reprocessamento quando a fonte muda.',
         highlights: [
-            'Arquitetura modular e escalável',
-            'Processamento incremental e reprocessamento',
-            'Dockerizado para fácil deploy'
+            'Módulos separados por etapa do pipeline',
+            'Carga incremental para não refazer tudo',
+            'Docker Compose para subir local'
         ],
         technologies: ['Node.js', 'Docker', 'ETL', 'API'],
         githubUrl: 'https://github.com/joaoleaogf/fipe-etl',
@@ -44,13 +62,14 @@ export const projects = [
     },
     {
         id: 3,
-        emoji: '🦠',
         title: 'Análise Descritiva – Febre Amarela',
-        description: 'Análise epidemiológica com visualização espacial de dados de saúde',
+        image: '/images/projects/febre-amarela.jpg',
+        imageAlt: 'Análise de dados em notebook',
+        description: 'Estudo epidemiológico em Python/QGIS: estatísticas descritivas e mapas dos casos de febre amarela.',
         highlights: [
-            'Análise estatística descritiva',
-            'Visualização de padrões espaciais',
-            'Processamento de dados epidemiológicos'
+            'Tabelas e gráficos das séries temporais',
+            'Mapas de concentração por região',
+            'Scripts reproduzíveis para atualizar os dados'
         ],
         technologies: ['Python', 'QGIS', 'Análise Espacial', 'Estatística'],
         githubUrl: 'https://github.com/joaoleaogf/analise-descritiva-febre-amarela',
@@ -58,13 +77,14 @@ export const projects = [
     },
     {
         id: 4,
-        emoji: '🏠',
-        title: 'Otimização de Rotas - Recadastramento Imobiliário',
-        description: 'Solução baseada em teoria dos grafos para otimizar rotas de campo',
+        title: 'Otimização de Rotas – Recadastramento',
+        image: '/images/projects/otimizacao-rotas.jpg',
+        imageAlt: 'Entrega urbana e logística de rotas',
+        description: 'Roteirização de equipes de campo com grafos para reduzir deslocamento no recadastramento imobiliário.',
         highlights: [
-            'Algoritmos de grafos para roteirização',
-            'Minimização de deslocamentos',
-            'Visualização de rotas otimizadas'
+            'Modelagem do território como grafo',
+            'Menos km percorridos por equipe',
+            'Saída visual das rotas sugeridas'
         ],
         technologies: ['Python', 'Grafos', 'Algoritmos', 'Otimização'],
         githubUrl: 'https://github.com/joaoleaogf/otimizacao-rotas-recadastramento-imobiliario',
@@ -72,13 +92,14 @@ export const projects = [
     },
     {
         id: 5,
-        emoji: '📊',
         title: 'Relatórios Ad-Hoc',
-        description: 'Sistema modular para criação e visualização de relatórios customizados',
+        image: '/images/projects/relatorios-adhoc.jpg',
+        imageAlt: 'Tela de relatórios e métricas',
+        description: 'Frontend para montar relatórios sob demanda, com filtros e exportação sem depender de BI externo.',
         highlights: [
-            'Arquitetura componentizada',
-            'Interface intuitiva e responsiva',
-            'Exportação em múltiplos formatos'
+            'Componentes reutilizáveis por tipo de relatório',
+            'Layout responsivo',
+            'Exportação em mais de um formato'
         ],
         technologies: ['JavaScript', 'HTML', 'CSS', 'Frontend'],
         githubUrl: 'https://github.com/joaoleaogf/relatorios-ad-hoc',
@@ -86,13 +107,14 @@ export const projects = [
     },
     {
         id: 6,
-        emoji: '♻️',
         title: 'Sistema de Coleta Seletiva',
-        description: 'Plataforma completa para gestão de coleta seletiva urbana',
+        image: '/images/projects/coleta-seletiva.jpg',
+        imageAlt: 'Gestão urbana e sustentabilidade',
+        description: 'API em Node.js e painel Vue para cadastrar rotas, pontos e status da coleta seletiva na cidade.',
         highlights: [
-            'Gerenciamento de rotas de coleta',
-            'API RESTful completa',
-            'Interface moderna com Vue.js'
+            'CRUD de rotas e pontos de coleta',
+            'API REST documentada',
+            'Painel Vue para operação'
         ],
         technologies: ['Vue.js', 'Node.js', 'API', 'Frontend'],
         githubUrl: 'https://github.com/joaoleaogf/Coleta-seletiva',
@@ -100,13 +122,14 @@ export const projects = [
     },
     {
         id: 7,
-        emoji: '🌊',
         title: 'Node.js Streams',
-        description: 'Exploração profunda de streams para processamento eficiente de grandes volumes',
+        image: '/images/projects/node-streams.jpg',
+        imageAlt: 'Código em editor de desenvolvimento',
+        description: 'Repositório de exemplos de Readable, Writable e Transform para processar arquivos grandes sem estourar RAM.',
         highlights: [
-            'Processamento eficiente de grandes arquivos',
-            'Exemplos práticos de streams',
-            'Otimização de memória'
+            'Leitura em chunks de arquivos pesados',
+            'Casos de uso comentados no código',
+            'Comparação de uso de memória'
         ],
         technologies: ['Node.js', 'Streams', 'Performance'],
         githubUrl: 'https://github.com/joaoleaogf/NodeJs-Streams',
@@ -114,13 +137,14 @@ export const projects = [
     },
     {
         id: 8,
-        emoji: '🧱',
         title: 'MVC – Psycopg2 vs SQLAlchemy',
-        description: 'Comparativo de ORMs em Python com arquitetura MVC',
+        image: '/images/projects/mvc-postgres.jpg',
+        imageAlt: 'Servidor e banco de dados',
+        description: 'Mesma API em Python implementada com psycopg2 puro e com SQLAlchemy, para comparar verbosidade e manutenção.',
         highlights: [
-            'Comparação detalhada de ORMs',
-            'Implementação MVC',
-            'Boas práticas de arquitetura'
+            'Dois drivers, mesma regra de negócio',
+            'Camadas MVC explícitas',
+            'Notas no README sobre trade-offs'
         ],
         technologies: ['Python', 'PostgreSQL', 'ORM', 'MVC'],
         githubUrl: 'https://github.com/joaoleaogf/MVC-psycopg2-vs-SqlAlchemy',

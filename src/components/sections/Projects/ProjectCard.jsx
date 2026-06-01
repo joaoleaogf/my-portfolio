@@ -1,60 +1,71 @@
 import React from 'react';
-import { FiExternalLink, FiGithub, FiGlobe } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 import './ProjectCard.css';
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
 
 const ProjectCard = ({ project }) => {
     return (
-        <div className="project-card glass-card">
-            <div className="project-header">
-                <span className="project-emoji">{project.emoji}</span>
-                {project.featured && <span className="featured-badge">Destaque</span>}
+        <motion.article className="project-card glass-card" variants={cardVariants}>
+            <div className="project-media">
+                <img
+                    src={project.image}
+                    alt={project.imageAlt || project.title}
+                    className="project-image"
+                    loading="lazy"
+                    decoding="async"
+                />
+                {project.featured && (
+                    <span className="featured-badge">destaque</span>
+                )}
             </div>
 
-            <h3 className="project-title">{project.title}</h3>
-            <p className="project-description">{project.description}</p>
+            <div className="project-body">
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-description">{project.description}</p>
 
-            {project.highlights && project.highlights.length > 0 && (
-                <ul className="project-highlights">
-                    {project.highlights.map((highlight, index) => (
-                        <li key={index}>{highlight}</li>
+                {project.highlights?.length > 0 && (
+                    <ul className="project-highlights">
+                        {project.highlights.map((highlight, index) => (
+                            <li key={index}>{highlight}</li>
+                        ))}
+                    </ul>
+                )}
+
+                <div className="project-technologies">
+                    {project.technologies.map(tech => (
+                        <span key={tech} className="tech-tag">{tech}</span>
                     ))}
-                </ul>
-            )}
+                </div>
 
-            <div className="project-technologies">
-                {project.technologies.map(tech => (
-                    <span key={tech} className="tech-tag">{tech}</span>
-                ))}
+                <div className="project-footer">
+                    {project.demoUrl && (
+                        <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="project-link"
+                        >
+                            Ver projeto <span aria-hidden="true">↗</span>
+                        </a>
+                    )}
+
+                    {project.githubUrl && (
+                        <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="project-link"
+                        >
+                            Ver código <span aria-hidden="true">↗</span>
+                        </a>
+                    )}
+                </div>
             </div>
-
-            <div className="project-footer">
-                {project.demoUrl && (
-                    <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link"
-                    >
-                        <FiGlobe size={18} />
-                        Ver projeto
-                        <FiExternalLink size={16} />
-                    </a>
-                )}
-
-                {project.githubUrl && (
-                    <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link"
-                    >
-                        <FiGithub size={18} />
-                        Ver código
-                        <FiExternalLink size={16} />
-                    </a>
-                )}
-            </div>
-        </div>
+        </motion.article>
     );
 };
 

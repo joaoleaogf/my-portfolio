@@ -1,5 +1,4 @@
 import React from 'react';
-import { FiHeart, FiGithub } from 'react-icons/fi';
 import './Footer.css';
 
 const Footer = () => {
@@ -14,9 +13,9 @@ const Footer = () => {
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-section">
-                        <h3 className="footer-brand">João Leão</h3>
+                        <span className="footer-signature" aria-hidden="true">João</span>
                         <p className="footer-tagline">
-                            Transformando dados em insights acionáveis
+                            Dado limpo, query rápida, sistema de pé. Feito em Itajubá-MG.
                         </p>
                     </div>
 
@@ -32,16 +31,21 @@ const Footer = () => {
                     </div>
 
                     <div className="footer-section">
-                        <h4 className="footer-title">Redes Sociais</h4>
+                        <h4 className="footer-title">Por aí</h4>
                         <ul className="footer-links">
                             <li>
                                 <a href="https://github.com/joaoleaogf" target="_blank" rel="noopener noreferrer">
-                                    GitHub
+                                    GitHub ↗
                                 </a>
                             </li>
                             <li>
                                 <a href="https://www.linkedin.com/in/joão-leão-630a94170/" target="_blank" rel="noopener noreferrer">
-                                    LinkedIn
+                                    LinkedIn ↗
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:joaoleao.gf@gmail.com">
+                                    Email ↗
                                 </a>
                             </li>
                         </ul>
@@ -50,10 +54,7 @@ const Footer = () => {
 
                 <div className="footer-bottom">
                     <p className="footer-copyright">
-                        © {currentYear} João Leão. Feito com <FiHeart className="heart-icon" /> e React
-                    </p>
-                    <p className="footer-tech">
-                        <FiGithub /> Código aberto no GitHub
+                        © {currentYear} João Leão — feito à mão com React.
                     </p>
                 </div>
             </div>
