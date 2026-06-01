@@ -1,0 +1,25 @@
+<section id="skills" class="section skills">
+  <div class="container">
+    <header class="section-head">
+      <p class="section-eyebrow">03 — minha caixa de ferramentas</p>
+      <h2 class="section-title">Com o que eu trabalho</h2>
+      <p class="skills-subtitle">
+        Não acredito muito em barrinha de porcentagem. Aqui está, na real,
+        o que uso no dia a dia — agrupado por onde costumo aplicar.
+      </p>
+    </header>
+
+    <div class="skills-grid">
+      @for (category of skillsCategories; track category.id) {
+        <div class="skill-block">
+          <h3 class="skill-block-title">{{ category.title }}</h3>
+          <ul class="skill-chips">
+            @for (skill of category.skills; track skill) {
+              <li class="skill-chip">{{ skill }}</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</section>

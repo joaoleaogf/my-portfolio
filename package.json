@@ -1,24 +1,32 @@
 {
   "name": "portfolio-joao-leao",
-  "private": true,
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development"
   },
   "dependencies": {
-    "framer-motion": "^12.23.26",
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/platform-server": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "@angular/ssr": "^21.2.13",
     "leaflet": "^1.9.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-helmet-async": "^2.0.5",
-    "react-leaflet": "^4.2.1",
-    "react-router-dom": "^7.10.1"
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.0.5"
+    "@angular/build": "^21.2.13",
+    "@angular/cli": "^21.2.13",
+    "@angular/compiler-cli": "^21.2.0",
+    "@types/leaflet": "^1.9.12",
+    "@types/node": "^20.17.19",
+    "typescript": "~5.9.2"
   }
 }

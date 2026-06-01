@@ -1,58 +1,62 @@
 # Portfólio — João Leão
 
-Site pessoal feito com React e Vite. Mostra projetos, formação, contato e um blog técnico.
+Site pessoal feito com Angular. Mostra projetos, formação e contato, com seção de mapa interativo.
 
 ## Stack
 
-- React 18 + Vite 6
-- React Router, Framer Motion, React Icons
-- CSS com variáveis em `src/styles/global.css`
+- Angular 21 (standalone components, signals, control flow `@if`/`@for`)
+- Change detection zoneless
+- Roteamento com Angular Router + prerender estático (SSG)
+- Leaflet (mapa de contato)
+- CSS com variáveis em `src/styles.css`
 
 ## Rodar local
 
 ```bash
 npm install
-npm run dev
+npm start
 ```
 
-Abre em [http://localhost:5173](http://localhost:5173).
+Abre em [http://localhost:4200](http://localhost:4200).
 
-Build de produção:
+Build de produção (gera HTML pré-renderizado):
 
 ```bash
 npm run build
-npm run preview
 ```
+
+Saída estática em `dist/portfolio/browser`.
 
 ## Estrutura (resumida)
 
 ```
 src/
-├── components/
-│   ├── common/       # SEO, animações
-│   ├── layout/       # Header, Footer
-│   └── sections/     # Hero, About, Projects, Skills, Contact
-├── data/
-│   ├── projects.js   # cards de projetos (+ imagens em public/images/projects)
-│   └── skills.js
-├── pages/            # Home, Blog
-└── styles/
+├── app/
+│   ├── core/          # SeoService (Title/Meta)
+│   ├── shared/        # RevealDirective (IntersectionObserver)
+│   ├── layout/        # header, footer
+│   ├── sections/      # hero, about, projects, skills, contact (+ map)
+│   ├── pages/         # home, not-found
+│   └── data/          # projects.ts, skills.ts
+├── styles.css         # tokens e estilos globais
+└── index.html         # meta tags / fontes / favicon
 ```
 
 ## O que editar
 
 | O quê | Onde |
 |--------|------|
-| Projetos (texto, links, imagem) | `src/data/projects.js` |
+| Projetos (texto, links, imagem) | `src/app/data/projects.ts` |
 | Imagens dos cards | `public/images/projects/` |
-| Cores e tokens | `src/styles/global.css` |
-| Skills / experiência | `src/data/skills.js` |
+| Cores e tokens | `src/styles.css` |
+| Skills / experiência / formação | `src/app/data/skills.ts` |
+| SEO / título / descrição | `src/app/core/seo.service.ts` e `src/index.html` |
 
 O demo do **Rastreador de Tempo** aponta para `https://rastreador-tempo.vercel.app`. No deploy na Vercel, `vercel.json` também faz proxy de `/rastreador-tempo` para esse app.
 
 ## Deploy
 
-Qualquer host estático que sirva a pasta `dist` funciona (Vercel, Netlify, etc.). Na Vercel, conectar o repositório costuma ser suficiente.
+`vercel.json` já define `buildCommand`, `outputDirectory` (`dist/portfolio/browser`) e o fallback de rotas. Na Vercel, conectar o repositório costuma ser suficiente.
 
 ## Contato
 
