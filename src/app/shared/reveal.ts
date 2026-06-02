@@ -40,7 +40,12 @@ export class RevealDirective implements OnDestroy {
             }
           }
         },
-        { threshold: 0.1, rootMargin: '-75px' },
+        // threshold 0: revela assim que qualquer parte entra na viewport.
+        // Não usar threshold > 0 aqui: para elementos mais altos que o viewport
+        // (ex.: a seção inteira de projetos empilhada em 1 coluna no mobile), o
+        // intersectionRatio máximo é altura_viewport/altura_elemento, que pode
+        // nunca atingir 0.1 — deixando a seção presa em opacity:0 no celular.
+        { threshold: 0, rootMargin: '-75px' },
       );
       this.observer.observe(el);
     });
