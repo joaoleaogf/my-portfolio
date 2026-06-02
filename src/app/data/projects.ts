@@ -45,15 +45,15 @@ export const projects: Project[] = [
   {
     id: 1,
     title: 'ETL GeoSaúde Itajubá',
-    image: '/images/projects/etl-geosaude.jpg',
-    imageAlt: 'Mapa com dados geoespaciais de saúde',
-    description: 'Pipeline em Python para limpar, geocodificar e publicar dados de saúde de Itajubá no PostGIS.',
+    image: '/images/projects/etl-geosaude.svg',
+    imageAlt: 'Distribuição espacial de atendimentos com rota geocodificada sobre setores censitários',
+    description: 'Pipeline em TypeScript para limpar, geocodificar e publicar dados de saúde de Itajubá no PostGIS.',
     highlights: [
       'Geocodificação com fallback entre APIs',
       'Padronização de endereços antes do load',
       'Camadas prontas para abrir no QGIS'
     ],
-    technologies: ['Python', 'PostGIS', 'QGIS', 'ETL', 'Geocoding'],
+    technologies: ['TypeScript', 'PostGIS', 'QGIS', 'ETL', 'Geocoding'],
     githubUrl: 'https://github.com/joaoleaogf/etl-geosaude-itajuba',
     featured: true
   },
