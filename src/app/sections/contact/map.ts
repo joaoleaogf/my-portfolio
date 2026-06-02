@@ -33,7 +33,8 @@ export class MapComponent implements OnDestroy {
   constructor() {
     // afterNextRender só roda no browser → seguro para prerender (SSG).
     afterNextRender(async () => {
-      const L = await import('leaflet');
+      // Leaflet é CommonJS: o objeto real fica em `.default` após o interop do bundler.
+      const L = (await import('leaflet')).default;
 
       this.map = L.map(this.mapEl().nativeElement, {
         center: this.center,
