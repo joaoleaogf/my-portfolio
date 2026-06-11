@@ -13,6 +13,22 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 11,
+    title: 'Radar de Arboviroses',
+    image: '/images/projects/radar-arboviroses.svg',
+    imageAlt: 'Mapa do Sul de Minas com municípios coloridos por nível de alerta de dengue',
+    description: 'Pipeline orquestrado em n8n que monitora dengue e chikungunya no Sul de Minas: coleta semanal do InfoDengue, mapa de alerta, notificações no Telegram e um agente de IA que responde sobre os dados.',
+    highlights: [
+      'ETL semanal idempotente no n8n (upsert por semana epidemiológica)',
+      'Mapa coroplético em Leaflet + série histórica em Highcharts',
+      'Alertas no Telegram e agente de IA (Gemini) consultando o PostGIS',
+      'Tudo em Docker Compose: n8n + PostGIS'
+    ],
+    technologies: ['n8n', 'PostGIS', 'Angular', 'Leaflet', 'Highcharts', 'AI Agent', 'Docker', 'ETL'],
+    githubUrl: 'https://github.com/joaoleaogf/radar-arboviroses',
+    featured: true
+  },
+  {
     id: 10,
     title: 'Dashboard Interativo BI',
     image: '/images/projects/bi-dashboard.svg',

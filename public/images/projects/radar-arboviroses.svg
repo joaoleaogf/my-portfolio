@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-label="Ilustração: mapa do Sul de Minas com municípios coloridos por nível de alerta de arboviroses">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#121214"/>
+    <stop offset="0.55" stop-color="#0f0f11"/>
+    <stop offset="1" stop-color="#161618"/>
+  </linearGradient>
+  <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#E0A458" stop-opacity="0.20"/>
+    <stop offset="0.6" stop-color="#E0A458" stop-opacity="0.05"/>
+    <stop offset="1" stop-color="#E0A458" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.72">
+    <stop offset="0.55" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="1" stop-color="#000000" stop-opacity="0.45"/>
+  </radialGradient>
+</defs>
+<rect width="1280" height="800" fill="url(#bg)"/>
+<g stroke="#ffffff" stroke-width="1" opacity="0.045">
+  <line x1="0" y1="0" x2="0" y2="800"/><line x1="128" y1="0" x2="128" y2="800"/><line x1="256" y1="0" x2="256" y2="800"/><line x1="384" y1="0" x2="384" y2="800"/><line x1="512" y1="0" x2="512" y2="800"/><line x1="640" y1="0" x2="640" y2="800"/><line x1="768" y1="0" x2="768" y2="800"/><line x1="896" y1="0" x2="896" y2="800"/><line x1="1024" y1="0" x2="1024" y2="800"/><line x1="1152" y1="0" x2="1152" y2="800"/><line x1="1280" y1="0" x2="1280" y2="800"/>
+  <line x1="0" y1="0" x2="1280" y2="0"/><line x1="0" y1="128" x2="1280" y2="128"/><line x1="0" y1="256" x2="1280" y2="256"/><line x1="0" y1="384" x2="1280" y2="384"/><line x1="0" y1="512" x2="1280" y2="512"/><line x1="0" y1="640" x2="1280" y2="640"/><line x1="0" y1="768" x2="1280" y2="768"/>
+</g>
+<circle cx="520" cy="360" r="320" fill="url(#glow)"/>
+<circle cx="840" cy="500" r="240" fill="url(#glow)"/>
+
+<!-- mosaico de municípios (mapa estilizado do Sul de Minas) -->
+<g stroke="#0b0b0d" stroke-width="2.5" stroke-linejoin="round">
+  <polygon points="300,180 430,150 500,250 410,330 290,310" fill="#22c55e" fill-opacity="0.32"/>
+  <polygon points="430,150 580,140 640,240 500,250" fill="#eab308" fill-opacity="0.34"/>
+  <polygon points="580,140 740,170 760,290 640,240" fill="#22c55e" fill-opacity="0.30"/>
+  <polygon points="740,170 900,200 880,320 760,290" fill="#f97316" fill-opacity="0.40"/>
+  <polygon points="900,200 1010,260 980,380 880,320" fill="#eab308" fill-opacity="0.32"/>
+  <polygon points="290,310 410,330 430,470 300,480 230,390" fill="#eab308" fill-opacity="0.30"/>
+  <polygon points="410,330 500,250 640,240 660,400 540,440 430,470" fill="#f97316" fill-opacity="0.42"/>
+  <polygon points="640,240 760,290 880,320 860,470 740,500 660,400" fill="#ef4444" fill-opacity="0.46"/>
+  <polygon points="880,320 980,380 1000,520 860,470" fill="#f97316" fill-opacity="0.38"/>
+  <polygon points="300,480 430,470 540,440 560,590 410,630 320,560" fill="#22c55e" fill-opacity="0.30"/>
+  <polygon points="540,440 660,400 740,500 720,640 560,590" fill="#f97316" fill-opacity="0.40"/>
+  <polygon points="740,500 860,470 1000,520 940,660 760,650 720,640" fill="#eab308" fill-opacity="0.32"/>
+</g>
+
+<!-- centróides dos municípios, com destaque no foco vermelho -->
+<g>
+  <circle cx="365" cy="240" r="4" fill="#22c55e"/>
+  <circle cx="530" cy="195" r="4" fill="#eab308"/>
+  <circle cx="690" cy="225" r="4" fill="#22c55e"/>
+  <circle cx="820" cy="255" r="5" fill="#f97316"/>
+  <circle cx="945" cy="300" r="4" fill="#eab308"/>
+  <circle cx="335" cy="395" r="4" fill="#eab308"/>
+  <circle cx="540" cy="350" r="5" fill="#f97316"/>
+  <circle cx="760" cy="375" r="6" fill="#ef4444"/>
+  <circle cx="930" cy="420" r="5" fill="#f97316"/>
+  <circle cx="430" cy="535" r="4" fill="#22c55e"/>
+  <circle cx="640" cy="540" r="5" fill="#f97316"/>
+  <circle cx="850" cy="565" r="4" fill="#eab308"/>
+</g>
+
+<!-- anel pulsante no município em nível vermelho (Itajubá em foco) -->
+<circle cx="760" cy="375" r="22" fill="none" stroke="#ef4444" stroke-opacity="0.55" stroke-width="2.5"/>
+<circle cx="760" cy="375" r="34" fill="none" stroke="#ef4444" stroke-opacity="0.25" stroke-width="2"/>
+
+<!-- pino de localização -->
+<path d="M 760 320 C 738 320 722 337 722 358 C 722 386 760 420 760 420 C 760 420 798 386 798 358 C 798 337 782 320 760 320 Z" fill="#ef4444" fill-opacity="0.92" stroke="#0b0b0d" stroke-width="2"/>
+<circle cx="760" cy="357" r="12" fill="#0f0f11"/>
+
+<!-- legenda de níveis -->
+<g font-family="Inter, system-ui, sans-serif" font-size="22" fill="#cbd5e1">
+  <rect x="150" y="690" width="18" height="18" rx="4" fill="#22c55e"/><text x="176" y="705">Verde</text>
+  <rect x="300" y="690" width="18" height="18" rx="4" fill="#eab308"/><text x="326" y="705">Amarelo</text>
+  <rect x="480" y="690" width="18" height="18" rx="4" fill="#f97316"/><text x="506" y="705">Laranja</text>
+  <rect x="650" y="690" width="18" height="18" rx="4" fill="#ef4444"/><text x="676" y="705">Vermelho</text>
+</g>
+
+<rect width="1280" height="800" fill="url(#vignette)"/>
+</svg>
