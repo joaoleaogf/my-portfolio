@@ -25,6 +25,7 @@ export const projects: Project[] = [
       'Tudo em Docker Compose: n8n + PostGIS'
     ],
     technologies: ['n8n', 'PostGIS', 'Angular', 'Leaflet', 'Highcharts', 'AI Agent', 'Docker', 'ETL'],
+    demoUrl: 'https://radar.joaoleao.fun',
     githubUrl: 'https://github.com/joaoleaogf/radar-arboviroses',
     featured: true
   },
