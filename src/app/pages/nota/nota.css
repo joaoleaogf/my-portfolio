@@ -1,0 +1,158 @@
+app-nota {
+  display: block;
+}
+
+.nota {
+  padding-top: calc(var(--spacing-3xl) + 3rem);
+}
+
+.nota-container {
+  max-width: 720px;
+}
+
+.nota-voltar {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.nota-voltar:hover {
+  color: var(--color-accent);
+}
+
+.nota-header {
+  margin: var(--spacing-lg) 0 var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nota-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.nota .nota-titulo {
+  font-size: var(--font-size-4xl);
+  margin: var(--spacing-sm) 0 var(--spacing-md);
+  text-wrap: balance;
+}
+
+.nota-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.nota-tag {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+}
+
+/* ===== Corpo do post ===== */
+.nota-corpo {
+  font-size: var(--font-size-lg);
+  line-height: 1.75;
+}
+
+.nota-corpo p {
+  margin-bottom: var(--spacing-md);
+}
+
+.nota-corpo .nota-lead {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+.nota-corpo h2 {
+  font-size: var(--font-size-2xl);
+  margin: var(--spacing-xl) 0 var(--spacing-sm);
+  letter-spacing: -0.015em;
+}
+
+.nota-corpo strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.nota-corpo em {
+  color: var(--color-text-primary);
+}
+
+.nota-corpo ul {
+  margin: 0 0 var(--spacing-md) var(--spacing-md);
+  padding-left: var(--spacing-sm);
+}
+
+.nota-corpo li {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.7;
+}
+
+.nota-corpo li::marker {
+  color: var(--color-accent);
+}
+
+.nota-corpo code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+  color: var(--color-text-primary);
+}
+
+.nota-corpo pre {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  overflow-x: auto;
+}
+
+.nota-corpo pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  white-space: pre;
+}
+
+.nota-corpo .nota-diagram code {
+  font-size: var(--font-size-xs);
+  line-height: 1.45;
+}
+
+.nota-footer {
+  margin: var(--spacing-xl) 0 var(--spacing-2xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .nota {
+    padding-top: calc(var(--spacing-2xl) + 3rem);
+  }
+
+  .nota-corpo {
+    font-size: var(--font-size-base);
+  }
+
+  .nota-corpo .nota-lead {
+    font-size: var(--font-size-lg);
+  }
+}

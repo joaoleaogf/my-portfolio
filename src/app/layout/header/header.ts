@@ -14,6 +14,8 @@ import { ThemeService } from '../../core/theme';
 interface NavItem {
   id: string;
   label: string;
+  /** Quando presente, o item navega para uma rota em vez de rolar até a seção. */
+  route?: string;
 }
 
 @Component({
@@ -39,6 +41,7 @@ export class Header {
     { id: 'about', label: 'Sobre' },
     { id: 'projects', label: 'Projetos' },
     { id: 'skills', label: 'Habilidades' },
+    { id: 'notas', label: 'Notas', route: '/notas' },
     { id: 'contact', label: 'Contato' },
   ];
 
@@ -71,20 +74,26 @@ export class Header {
     this.activeSection.set(current);
   }
 
-  protected isActive(id: string): boolean {
-    return this.isHomePage && this.activeSection() === id;
+  protected isActive(item: NavItem): boolean {
+    if (item.route) return this.router.url.startsWith(item.route);
+    return this.isHomePage && this.activeSection() === item.id;
   }
 
-  protected navigate(sectionId: string): void {
+  protected navigate(item: NavItem): void {
     this.mobileMenuOpen.set(false);
+
+    if (item.route) {
+      this.router.navigateByUrl(item.route);
+      return;
+    }
 
     if (!this.isHomePage) {
       this.router.navigateByUrl('/').then(() => {
-        setTimeout(() => this.scrollTo(sectionId), 100);
+        setTimeout(() => this.scrollTo(item.id), 100);
       });
       return;
     }
-    this.scrollTo(sectionId);
+    this.scrollTo(item.id);
   }
 
   private scrollTo(sectionId: string): void {

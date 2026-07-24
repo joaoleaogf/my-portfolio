@@ -1,7 +1,7 @@
 <header class="header" [class.scrolled]="isScrolled()">
   <div class="container">
     <nav class="nav">
-      <button type="button" class="nav-brand" (click)="navigate('home')">
+      <button type="button" class="nav-brand" (click)="navigate({ id: 'home', label: 'Início' })">
         <span class="brand-text">João Leão</span>
         <span class="brand-tag">dev · dados · mapas</span>
       </button>
@@ -13,8 +13,8 @@
             <button
               type="button"
               class="nav-link"
-              [class.active]="isActive(item.id)"
-              (click)="navigate(item.id)"
+              [class.active]="isActive(item)"
+              (click)="navigate(item)"
             >
               {{ item.label }}
             </button>
@@ -59,8 +59,8 @@
               <button
                 type="button"
                 class="mobile-nav-link"
-                [class.active]="isActive(item.id)"
-                (click)="navigate(item.id)"
+                [class.active]="isActive(item)"
+                (click)="navigate(item)"
               >
                 {{ item.label }}
               </button>

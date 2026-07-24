@@ -1,0 +1,38 @@
+@if (nota; as nota) {
+  <article class="section nota">
+    <div class="container nota-container">
+      <a class="nota-voltar" routerLink="/notas">← todas as notas</a>
+
+      <header class="nota-header">
+        <div class="nota-meta">
+          <time [attr.datetime]="nota.date">{{ formatarData(nota.date) }}</time>
+          <span aria-hidden="true">·</span>
+          <span>{{ nota.readingTime }} min de leitura</span>
+        </div>
+
+        <h1 class="nota-titulo">{{ nota.title }}</h1>
+
+        <div class="nota-tags">
+          @for (tag of nota.tags; track tag) {
+            <span class="nota-tag">{{ tag }}</span>
+          }
+        </div>
+      </header>
+
+      <div class="nota-corpo" [innerHTML]="nota.body"></div>
+
+      @if (nota.repoUrl) {
+        <footer class="nota-footer">
+          <a
+            class="btn btn-primary"
+            [href]="nota.repoUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver o código no GitHub ↗
+          </a>
+        </footer>
+      }
+    </div>
+  </article>
+}

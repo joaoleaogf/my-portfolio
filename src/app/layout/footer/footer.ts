@@ -5,10 +5,11 @@ import {
   inject,
   ViewEncapsulation,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
+  imports: [RouterLink],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
   encapsulation: ViewEncapsulation.None,

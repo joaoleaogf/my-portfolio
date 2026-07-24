@@ -1,0 +1,37 @@
+<section class="section notas">
+  <div class="container">
+    <header class="section-head">
+      <p class="section-eyebrow">notas</p>
+      <h1 class="section-title">O que eu andei construindo</h1>
+      <p class="notas-subtitle">
+        De vez em quando um problema pessoal vira projeto, e o projeto rende uma
+        lição que valia estar escrita em algum lugar. É o que fica aqui.
+      </p>
+    </header>
+
+    <ul class="notas-list">
+      @for (nota of notas; track nota.slug) {
+        <li class="nota-item" reveal [revealDelay]="$index * 80">
+          <a class="nota-link" [routerLink]="['/notas', nota.slug]">
+            <div class="nota-meta">
+              <time [attr.datetime]="nota.date">{{ formatarData(nota.date) }}</time>
+              <span aria-hidden="true">·</span>
+              <span>{{ nota.readingTime }} min de leitura</span>
+            </div>
+
+            <h2 class="nota-titulo">{{ nota.title }}</h2>
+            <p class="nota-resumo">{{ nota.summary }}</p>
+
+            <div class="nota-tags">
+              @for (tag of nota.tags; track tag) {
+                <span class="nota-tag">{{ tag }}</span>
+              }
+            </div>
+
+            <span class="nota-cta">Ler a nota →</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
