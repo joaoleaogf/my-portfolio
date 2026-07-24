@@ -1,0 +1,44 @@
+<section id="notas" class="section home-notas">
+  <div class="container">
+    <header class="section-head">
+      <p class="section-eyebrow">04 — o que eu aprendi apanhando</p>
+      <h2 class="section-title">Notas</h2>
+      <p class="home-notas-subtitle">
+        De vez em quando um problema pessoal vira projeto, e o projeto rende uma
+        lição que valia estar escrita em algum lugar.
+      </p>
+    </header>
+
+    <div class="home-notas-grid">
+      @for (nota of notas; track nota.slug) {
+        <a
+          class="home-nota-card"
+          [routerLink]="['/notas', nota.slug]"
+          reveal
+          [revealDelay]="$index * 80"
+        >
+          <div class="home-nota-meta">
+            <time [attr.datetime]="nota.date">{{ formatarData(nota.date) }}</time>
+            <span aria-hidden="true">·</span>
+            <span>{{ nota.readingTime }} min</span>
+          </div>
+
+          <h3 class="home-nota-titulo">{{ nota.title }}</h3>
+          <p class="home-nota-resumo">{{ nota.summary }}</p>
+
+          <div class="home-nota-tags">
+            @for (tag of nota.tags; track tag) {
+              <span class="home-nota-tag">{{ tag }}</span>
+            }
+          </div>
+
+          <span class="home-nota-cta">Ler a nota →</span>
+        </a>
+      }
+    </div>
+
+    <div class="home-notas-footer">
+      <a routerLink="/notas" class="btn btn-outline">Todas as notas →</a>
+    </div>
+  </div>
+</section>

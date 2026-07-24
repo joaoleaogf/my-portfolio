@@ -1,0 +1,98 @@
+app-notas-section {
+  display: block;
+}
+
+.home-notas {
+  background: var(--color-bg-secondary);
+}
+
+.home-notas-subtitle {
+  max-width: 60ch;
+  color: var(--color-text-secondary);
+  margin-top: calc(var(--spacing-sm) * -1 + 0.25rem);
+  margin-bottom: var(--spacing-xl);
+}
+
+.home-notas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.home-nota-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: inherit;
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+
+.home-nota-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent-border);
+  color: inherit;
+}
+
+.home-nota-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.home-nota-titulo {
+  font-size: var(--font-size-xl);
+  margin: var(--spacing-xs) 0 var(--spacing-sm);
+  text-wrap: balance;
+}
+
+.home-nota-card:hover .home-nota-titulo {
+  color: var(--color-accent);
+}
+
+.home-nota-resumo {
+  flex: 1;
+  margin-bottom: var(--spacing-md);
+}
+
+.home-nota-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.home-nota-tag {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+}
+
+.home-nota-cta {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+}
+
+.home-notas-footer {
+  margin-top: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+  .home-notas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-nota-card {
+    padding: var(--spacing-md);
+  }
+}

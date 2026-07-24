@@ -5,11 +5,12 @@ import { Hero } from '../../sections/hero/hero';
 import { About } from '../../sections/about/about';
 import { Projects } from '../../sections/projects/projects';
 import { Skills } from '../../sections/skills/skills';
+import { NotasSection } from '../../sections/notas/notas-section';
 import { Contact } from '../../sections/contact/contact';
 
 @Component({
   selector: 'app-home',
-  imports: [RevealDirective, Hero, About, Projects, Skills, Contact],
+  imports: [RevealDirective, Hero, About, Projects, Skills, NotasSection, Contact],
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
