@@ -21,16 +21,28 @@
 
       <div class="nota-corpo" [innerHTML]="nota.body"></div>
 
-      @if (nota.repoUrl) {
+      @if (nota.repoUrl || nota.demoUrl) {
         <footer class="nota-footer">
-          <a
-            class="btn btn-primary"
-            [href]="nota.repoUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ver o código no GitHub ↗
-          </a>
+          @if (nota.demoUrl) {
+            <a
+              class="btn btn-primary"
+              [href]="nota.demoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver o projeto no ar ↗
+            </a>
+          }
+          @if (nota.repoUrl) {
+            <a
+              class="btn btn-outline"
+              [href]="nota.repoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver o código no GitHub ↗
+            </a>
+          }
         </footer>
       }
     </div>

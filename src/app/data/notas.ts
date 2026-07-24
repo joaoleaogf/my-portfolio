@@ -9,6 +9,8 @@ export interface Nota {
   /** Minutos de leitura, arredondado. */
   readingTime: number;
   repoUrl?: string;
+  /** Projeto no ar, quando existe. */
+  demoUrl?: string;
   /** Corpo do post em HTML. */
   body: string;
 }
@@ -196,7 +198,152 @@ estilo:
 </p>
 `;
 
+const radarArboviroses = `
+<p class="nota-lead">
+  Os dados de dengue do InfoDengue são públicos, semanais e cobrem os 5.570 municípios
+  do país. O que não existe é a parte chata: alguém buscando, guardando, cruzando com
+  a malha territorial e avisando quando um município entra em alerta. Resolvi montar
+  isso — e a decisão que mais mudou o projeto foi não escrever o pipeline como script.
+</p>
+
+<h2>Por que um orquestrador em vez de um cron com script</h2>
+
+<p>
+  A primeira versão mental era óbvia: um script Python, um cron, uma tabela. Funciona,
+  e é o que eu já tinha feito outras vezes. O problema aparece depois: quando o ETL
+  falha numa terça de madrugada, você quer ver <em>em que item</em> ele parou, quer
+  reexecutar só aquele pedaço, e quer que a próxima pessoa a mexer entenda o fluxo sem
+  ler quatrocentas linhas.
+</p>
+
+<p>
+  Botei o n8n como protagonista. Ele agenda, coleta, trata, alerta, serve a API e
+  conversa — cinco workflows versionados em JSON no repositório, que sobem junto com o
+  banco num <code>docker compose up</code>. O dashboard em Angular e o bot do Telegram
+  são só as pontas visíveis.
+</p>
+
+<pre class="nota-diagram"><code>IBGE (malhas)  ──▶ WF1 sync-municipios ─┐
+                                        ▼
+InfoDengue     ──▶ WF2 etl-infodengue ─▶ PostGIS ◀── WF4 api ──▶ dashboard
+                                        │  ▲                     (Leaflet + Highcharts)
+                   WF3 alertas ─────────┘  │
+                     └─▶ Telegram / e-mail │
+                   WF5 ai-agent ◀── tools ─┘
+                     └─▶ Telegram (Gemini)</code></pre>
+
+<h2>Idempotência é o que faz o ETL ser sossegado</h2>
+
+<p>
+  A tentação, num ETL semanal, é buscar só a semana nova. Eu faço o contrário: toda
+  terça às 8h o WF2 varre <strong>a janela inteira desde 2024</strong>, para cada
+  município e cada uma das duas doenças, e grava com upsert na chave
+  <code>(geocode, doenca, semana_epidemiológica)</code>.
+</p>
+
+<p>
+  Parece desperdício, e é de propósito. O InfoDengue revisa dados retroativamente — o
+  número de casos estimados de três semanas atrás muda quando a notificação chega
+  atrasada. Buscando só o incremento, o banco congela a primeira versão de cada semana
+  e vai ficando errado devagar, do jeito mais difícil de perceber. Com janela fixa e
+  upsert idempotente, toda execução também <em>corrige o passado</em>, e rodar duas
+  vezes seguidas não faz diferença nenhuma. É o mesmo motivo pelo qual as migrations em
+  <code>db/init</code> são todas <code>IF NOT EXISTS</code>.
+</p>
+
+<p>
+  A contrapartida é volume: são 5.570 municípios vezes duas doenças de requisições
+  contra uma API pública e gratuita, mantida por gente que não me deve nada. Então o nó
+  HTTP roda em lotes de 5 com intervalo de 1 segundo — uns 5 req/s, com timeout de 30s.
+  Cada execução abre e fecha um registro em <code>etl_run</code>, e no fim atualiza a
+  view <code>situacao_atual</code>, que é o que o dashboard e os alertas consultam. O
+  alerta em si tem deduplicação própria: município que já foi notificado naquele nível
+  não vira mensagem de novo.
+</p>
+
+<h2>O agente de IA que não escreve SQL</h2>
+
+<p>
+  A parte que mais me perguntam é o bot do Telegram que responde "como está a dengue em
+  Itajubá?" em linguagem natural. A implementação tem uma decisão deliberada: o modelo
+  <strong>não escreve SQL</strong>.
+</p>
+
+<p>
+  O agente tem exatamente quatro ferramentas, e cada uma é uma query fixa e
+  parametrizada — buscar município por nome, situação atual de um município, ranking dos
+  municípios em alerta e resumo nacional. O modelo escolhe qual chamar e com que
+  parâmetro; a consulta em si já está escrita e revisada por mim.
+</p>
+
+<pre><code>buscar_municipio    → WHERE unaccent(lower(nome)) LIKE unaccent(lower('%' || $1 || '%'))
+situacao_municipio  → WHERE geocode = $1
+ranking_alertas     → WHERE doenca = $1 ORDER BY nivel DESC, casos_est DESC
+resumo_regional     → agregados nacionais da semana mais recente</code></pre>
+
+<p>
+  Dar acesso livre ao banco para um modelo é a solução que aparece em todo tutorial e é
+  a que eu não quero em produção: além do risco óbvio de injeção, você perde a
+  previsibilidade de custo e de plano de execução. Com ferramentas parametrizadas, o
+  pior caso é o agente escolher a ferramenta errada e dar uma resposta boba — não
+  varrer a tabela inteira nem apagar nada. A memória é por chat, então o "e em Pouso
+  Alegre?" logo depois continua funcionando.
+</p>
+
+<h2>Onde isso roda</h2>
+
+<p>
+  Tudo em free tier, o que impôs restrições saudáveis. São duas VMs da Oracle Cloud
+  conversando pela rede privada da VCN: uma com nginx, a auth-api e o n8n atrás de
+  HTTPS, outra só com o Postgres/PostGIS. O dashboard é estático, publicado pelo
+  Cloudflare Pages.
+</p>
+
+<p>
+  A auth-api é um Fastify pequeno em cima do <code>pg</code>, com contas de usuário,
+  inscrição em municípios e disparo dos alertas por e-mail, coberto por testes no
+  Vitest. O CI roda typecheck, testes, build e <code>npm audit</code> a cada push, e o
+  deploy contínuo só acontece se essa etapa passar — depois valida o
+  <code>/health</code> antes de considerar a coisa no ar.
+</p>
+
+<p>
+  Um detalhe pequeno de que eu gostei: o <code>docker compose up</code>
+  <strong>falha</strong> se os segredos de JWT e da chamada interna não estiverem no
+  ambiente. Sem valor padrão, sem fallback bonitinho. Segredo com default previsível é
+  segredo que vai para produção sem ninguém notar.
+</p>
+
+<h2>O que eu faria diferente</h2>
+
+<p>
+  As migrations manuais em banco existente são o ponto fraco: os scripts só rodam
+  sozinhos em instalação nova, então em produção eu aplico na mão. É idempotente e
+  documentado, mas é o tipo de coisa que funciona até o dia em que alguém esquece.
+  Ferramenta de migration de verdade resolveria.
+</p>
+
+<p>
+  Fora isso, a lição que levo é que quase nada aqui é sofisticado. Idempotência,
+  throttle, deduplicação de alerta e ferramentas parametrizadas em vez de SQL livre são
+  todas decisões chatas — e são exatamente elas que fazem o pipeline rodar sozinho
+  desde então, sem eu precisar olhar.
+</p>
+`;
+
 export const notas: Nota[] = [
+  {
+    slug: 'radar-de-arboviroses-com-n8n-e-postgis',
+    title: 'Um radar de dengue para o Brasil inteiro, rodando em free tier',
+    date: '2026-07-24',
+    summary:
+      'Pipeline semanal do InfoDengue para os 5.570 municípios com n8n e PostGIS: por que o ETL busca a janela inteira toda vez, como o alerta evita repetir e por que o agente de IA no Telegram não escreve SQL.',
+    tags: ['n8n', 'PostGIS', 'ETL', 'Gemini', 'Angular'],
+    readingTime: 8,
+    repoUrl: 'https://github.com/joaoleaogf/radar-arboviroses',
+    demoUrl: 'https://radar.joaoleao.fun',
+    body: radarArboviroses,
+  },
   {
     slug: 'traducao-de-webnovel-com-glossario',
     title: 'Consertando tradução automática de webnovel com glossário e ETL',
