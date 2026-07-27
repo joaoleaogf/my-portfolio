@@ -30,6 +30,23 @@ export const projects: Project[] = [
     featured: true
   },
   {
+    id: 12,
+    title: 'Life Tecnologia – Loja Online',
+    image: '/images/projects/marketplace-ecommerce.svg',
+    imageAlt: 'Vitrine de produtos com resumo de pedido, selo Pix e fluxo de pagamento',
+    description: 'E-commerce completo em Next.js 15 para uma loja de celulares: catálogo, carrinho, checkout com Mercado Pago, frete pelo Melhor Envio e painel do lojista.',
+    highlights: [
+      'Webhook idempotente: só ele confirma pagamento e baixa estoque uma única vez',
+      'Dinheiro sempre em centavos, com testes no caminho da cobrança (Vitest)',
+      'Preço e estoque revalidados no servidor — nada vindo do cliente é confiável',
+      'Painel admin com importação de produtos por CSV e e-mails transacionais'
+    ],
+    technologies: ['Next.js', 'React', 'TypeScript', 'MongoDB', 'TailwindCSS', 'Zod'],
+    demoUrl: 'https://lifetecnologia.shop',
+    githubUrl: 'https://github.com/joaoleaogf/Marketplace-E-commerce',
+    featured: true
+  },
+  {
     id: 10,
     title: 'Dashboard Interativo BI',
     image: '/images/projects/bi-dashboard.svg',
