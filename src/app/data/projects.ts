@@ -13,6 +13,23 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 13,
+    title: 'NVR Caseiro – Câmeras IP',
+    image: '/images/projects/camera-nvr.svg',
+    imageAlt: 'Mosaico de câmeras de segurança com pessoa detectada no portão e linha do tempo de gravações',
+    description: 'NVR próprio para câmeras IP baratas (Xiongmai/iCSee e Yoosee): grava 24/7 com ffmpeg no PC de casa, avisa no celular quando alguém entra no portão e serve o mesmo painel na LAN e pela internet.',
+    highlights: [
+      'Gravação sem recodificar (-c:v copy), segmentos de 1 h, retenção e religa a câmera que cai',
+      'Alerta em três degraus — quadro a cada 3 s, YOLO (ONNX) e zona — para o vizinho na calçada não acordar a casa',
+      'Linha do tempo em miniaturas reais no eixo de hora do dia: câmera fora do ar vira buraco visível',
+      'Uma tela só: servida pelo gravador em casa (sem internet) e pela Vercel, com login do Google via Cloudflare Tunnel'
+    ],
+    technologies: ['Node.js', 'ffmpeg', 'RTSP', 'YOLO', 'ONNX', 'WebSocket', 'Vercel', 'PostgreSQL'],
+    demoUrl: 'https://cameras.joaoleao.fun',
+    githubUrl: 'https://github.com/joaoleaogf/camera-nvr',
+    featured: true
+  },
+  {
     id: 11,
     title: 'Radar de Arboviroses',
     image: '/images/projects/radar-arboviroses.svg',

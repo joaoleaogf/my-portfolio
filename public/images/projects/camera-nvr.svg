@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-label="Ilustração: mosaico de câmeras de segurança com pessoa detectada no portão e linha do tempo de gravações">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#121214"/>
+    <stop offset="0.55" stop-color="#0f0f11"/>
+    <stop offset="1" stop-color="#161618"/>
+  </linearGradient>
+  <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#E0A458" stop-opacity="0.20"/>
+    <stop offset="0.6" stop-color="#E0A458" stop-opacity="0.05"/>
+    <stop offset="1" stop-color="#E0A458" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.72">
+    <stop offset="0.55" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="1" stop-color="#000000" stop-opacity="0.45"/>
+  </radialGradient>
+  <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#1b1b1f"/>
+    <stop offset="1" stop-color="#141417"/>
+  </linearGradient>
+  <linearGradient id="noite" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#16202a"/>
+    <stop offset="1" stop-color="#101418"/>
+  </linearGradient>
+  <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="8" height="8" fill="#18181b"/>
+    <line x1="0" y1="0" x2="0" y2="8" stroke="#2f2f35" stroke-width="3"/>
+  </pattern>
+  <clipPath id="c1"><rect x="130" y="110" width="485" height="240" rx="12"/></clipPath>
+  <clipPath id="c2"><rect x="665" y="110" width="485" height="240" rx="12"/></clipPath>
+  <clipPath id="c3"><rect x="130" y="370" width="485" height="240" rx="12"/></clipPath>
+  <clipPath id="c4"><rect x="665" y="370" width="485" height="240" rx="12"/></clipPath>
+</defs>
+<rect width="1280" height="800" fill="url(#bg)"/>
+<g stroke="#ffffff" stroke-width="1" opacity="0.045">
+  <line x1="0" y1="0" x2="0" y2="800"/><line x1="128" y1="0" x2="128" y2="800"/><line x1="256" y1="0" x2="256" y2="800"/><line x1="384" y1="0" x2="384" y2="800"/><line x1="512" y1="0" x2="512" y2="800"/><line x1="640" y1="0" x2="640" y2="800"/><line x1="768" y1="0" x2="768" y2="800"/><line x1="896" y1="0" x2="896" y2="800"/><line x1="1024" y1="0" x2="1024" y2="800"/><line x1="1152" y1="0" x2="1152" y2="800"/><line x1="1280" y1="0" x2="1280" y2="800"/>
+  <line x1="0" y1="0" x2="1280" y2="0"/><line x1="0" y1="128" x2="1280" y2="128"/><line x1="0" y1="256" x2="1280" y2="256"/><line x1="0" y1="384" x2="1280" y2="384"/><line x1="0" y1="512" x2="1280" y2="512"/><line x1="0" y1="640" x2="1280" y2="640"/><line x1="0" y1="768" x2="1280" y2="768"/>
+</g>
+<circle cx="380" cy="240" r="320" fill="url(#glow)"/>
+<circle cx="900" cy="520" r="280" fill="url(#glow)"/>
+
+<!-- CAM 1 · portão — pessoa detectada dentro da zona -->
+<g clip-path="url(#c1)">
+  <rect x="130" y="110" width="485" height="240" fill="url(#tile)"/>
+  <!-- calçada e muro -->
+  <rect x="130" y="290" width="485" height="60" fill="#1f1f24"/>
+  <path d="M 130 290 L 615 262" stroke="#2c2c32" stroke-width="3" fill="none"/>
+  <rect x="150" y="180" width="120" height="110" fill="#191920"/>
+  <!-- portão -->
+  <g stroke="#3a3a42" stroke-width="3">
+    <rect x="300" y="165" width="150" height="125" fill="#15151a"/>
+    <line x1="330" y1="165" x2="330" y2="290"/><line x1="360" y1="165" x2="360" y2="290"/>
+    <line x1="390" y1="165" x2="390" y2="290"/><line x1="420" y1="165" x2="420" y2="290"/>
+  </g>
+  <!-- zona de alerta -->
+  <polygon points="288,158 462,158 492,300 262,300" fill="#E0A458" fill-opacity="0.10" stroke="#E0A458" stroke-opacity="0.65" stroke-width="2.5" stroke-dasharray="9 7"/>
+  <text x="148" y="145" font-family="Inter, system-ui, sans-serif" font-size="17" fill="#E0A458" fill-opacity="0.85">zona: portão</text>
+  <!-- pessoa -->
+  <g fill="#8b8b95">
+    <circle cx="380" cy="205" r="14"/>
+    <path d="M 366 224 L 394 224 L 400 268 L 388 268 L 386 290 L 374 290 L 372 268 L 360 268 Z"/>
+  </g>
+  <!-- caixa do YOLO -->
+  <rect x="348" y="185" width="66" height="118" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <rect x="348" y="160" width="132" height="25" fill="#22c55e"/>
+  <text x="357" y="178" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="#0b0b0d">pessoa 87%</text>
+</g>
+<rect x="130" y="110" width="485" height="240" rx="12" fill="none" stroke="#2a2a30" stroke-width="2"/>
+<g font-family="Inter, system-ui, sans-serif" font-size="18" fill="#cbd5e1">
+  <text x="148" y="338">CAM 1 · portão</text>
+  <circle cx="577" cy="132" r="7" fill="#ef4444"/>
+  <text x="520" y="138" font-size="16" fill="#ef4444">REC</text>
+</g>
+
+<!-- CAM 2 · quintal -->
+<g clip-path="url(#c2)">
+  <rect x="665" y="110" width="485" height="240" fill="url(#noite)"/>
+  <rect x="665" y="280" width="485" height="70" fill="#141a20"/>
+  <path d="M 700 280 L 740 200 L 780 280 Z" fill="#18222a"/>
+  <path d="M 840 280 L 890 190 L 940 280 Z" fill="#1a242d"/>
+  <rect x="1000" y="215" width="110" height="65" fill="#161e26"/>
+  <circle cx="715" cy="160" r="20" fill="#E0A458" fill-opacity="0.18"/>
+</g>
+<rect x="665" y="110" width="485" height="240" rx="12" fill="none" stroke="#2a2a30" stroke-width="2"/>
+<g font-family="Inter, system-ui, sans-serif" font-size="18" fill="#cbd5e1">
+  <text x="683" y="338">CAM 2 · quintal</text>
+  <circle cx="1112" cy="132" r="7" fill="#ef4444"/>
+  <text x="1055" y="138" font-size="16" fill="#ef4444">REC</text>
+</g>
+
+<!-- CAM 3 · garagem -->
+<g clip-path="url(#c3)">
+  <rect x="130" y="370" width="485" height="240" fill="url(#tile)"/>
+  <rect x="130" y="545" width="485" height="65" fill="#1f1f24"/>
+  <rect x="200" y="430" width="230" height="115" rx="10" fill="#191920" stroke="#32323a" stroke-width="3"/>
+  <circle cx="250" cy="548" r="22" fill="#15151a" stroke="#32323a" stroke-width="3"/>
+  <circle cx="390" cy="548" r="22" fill="#15151a" stroke="#32323a" stroke-width="3"/>
+  <rect x="470" y="400" width="120" height="145" fill="#17171c"/>
+</g>
+<rect x="130" y="370" width="485" height="240" rx="12" fill="none" stroke="#2a2a30" stroke-width="2"/>
+<g font-family="Inter, system-ui, sans-serif" font-size="18" fill="#cbd5e1">
+  <text x="148" y="598">CAM 3 · garagem</text>
+  <circle cx="577" cy="392" r="7" fill="#ef4444"/>
+  <text x="520" y="398" font-size="16" fill="#ef4444">REC</text>
+</g>
+
+<!-- CAM 4 · sem sinal -->
+<g clip-path="url(#c4)">
+  <rect x="665" y="370" width="485" height="240" fill="#131316"/>
+  <g stroke="#232329" stroke-width="2">
+    <line x1="665" y1="400" x2="1150" y2="400"/><line x1="665" y1="440" x2="1150" y2="440"/>
+    <line x1="665" y1="480" x2="1150" y2="480"/><line x1="665" y1="520" x2="1150" y2="520"/>
+    <line x1="665" y1="560" x2="1150" y2="560"/>
+  </g>
+  <text x="907" y="500" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#6b7280">sem sinal · reconectando</text>
+</g>
+<rect x="665" y="370" width="485" height="240" rx="12" fill="none" stroke="#2a2a30" stroke-width="2"/>
+<g font-family="Inter, system-ui, sans-serif" font-size="18" fill="#cbd5e1">
+  <text x="683" y="598">CAM 4 · corredor</text>
+  <circle cx="1112" cy="392" r="7" fill="#6b7280"/>
+</g>
+
+<!-- linha do tempo das gravações (eixo = hora do dia) -->
+<g font-family="Inter, system-ui, sans-serif" font-size="16" fill="#8b8b95">
+  <text x="130" y="646">linha do tempo · hora do dia</text>
+  <text x="1150" y="646" text-anchor="end">14:00</text>
+</g>
+<g>
+  <rect x="130" y="658" width="56" height="58" rx="4" fill="#1c1c21"/>
+  <rect x="190" y="658" width="56" height="58" rx="4" fill="#1f1f25"/>
+  <rect x="250" y="658" width="56" height="58" rx="4" fill="url(#hatch)"/>
+  <rect x="310" y="658" width="56" height="58" rx="4" fill="url(#hatch)"/>
+  <rect x="370" y="658" width="56" height="58" rx="4" fill="#1d1d23"/>
+  <rect x="430" y="658" width="56" height="58" rx="4" fill="#212127"/>
+  <rect x="490" y="658" width="56" height="58" rx="4" fill="#1b1b20"/>
+  <rect x="550" y="658" width="56" height="58" rx="4" fill="#232329"/>
+  <rect x="610" y="658" width="56" height="58" rx="4" fill="#26262c" stroke="#E0A458" stroke-width="2.5"/>
+  <rect x="670" y="658" width="56" height="58" rx="4" fill="#1e1e24"/>
+  <rect x="730" y="658" width="56" height="58" rx="4" fill="#1b1b20"/>
+  <rect x="790" y="658" width="56" height="58" rx="4" fill="#212127"/>
+  <rect x="850" y="658" width="56" height="58" rx="4" fill="url(#hatch)"/>
+  <rect x="910" y="658" width="56" height="58" rx="4" fill="#1d1d23"/>
+  <rect x="970" y="658" width="56" height="58" rx="4" fill="#1f1f25"/>
+  <rect x="1030" y="658" width="56" height="58" rx="4" fill="#1b1b20"/>
+  <rect x="1090" y="658" width="60" height="58" rx="4" fill="#212127"/>
+</g>
+<!-- cursor fixo no meio -->
+<line x1="638" y1="650" x2="638" y2="726" stroke="#E0A458" stroke-width="3"/>
+<path d="M 638 646 L 646 636 L 630 636 Z" fill="#E0A458"/>
+
+<!-- rodapé: os dois lugares que servem a mesma tela -->
+<g font-family="Inter, system-ui, sans-serif" font-size="19" fill="#cbd5e1">
+  <circle cx="140" cy="756" r="6" fill="#22c55e"/>
+  <text x="156" y="763">gravador em casa · ffmpeg 24/7</text>
+  <circle cx="620" cy="756" r="6" fill="#E0A458"/>
+  <text x="636" y="763">painel na Vercel · túnel para o PC</text>
+</g>
+
+<rect width="1280" height="800" fill="url(#vignette)"/>
+</svg>
